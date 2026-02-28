@@ -1,2 +1,3 @@
-Proyecto BOOST para la  asignatura Laboratorio de Software, Daniel Castro y Brayan Rojas
+BOOST-asignatura Laboratorio de Software, Daniel Castro y Brayan Rojas
+
 El proyecto BOOST es una plataforma diseñada para centralizar y democratizar el acceso a servicios de bienestar integral. El proyecto aborda la problemática de la fragmentación de servicios especializados, donde los usuarios deben navegar entre múltiples sitios para atender áreas como salud emocional, finanzas y educación. 
