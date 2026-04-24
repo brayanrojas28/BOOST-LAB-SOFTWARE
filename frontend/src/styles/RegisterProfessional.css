@@ -1,0 +1,47 @@
+/* CHECKBOXES ORDENADOS */
+.checkbox-group {
+  margin-bottom: 15px;
+}
+
+.checkbox-group p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #2c5282;
+  font-weight: 500;
+}
+
+.checkbox-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.checkbox-grid label {
+  background: #f1f5f9;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.checkbox-grid input {
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  gap: 30px;
+  max-width: 1400px;
+  width: 95%;
+  margin: auto;
+  align-items: stretch;
+}
+
+.card {
+  flex: 2; /* antes 1 */
+  max-width: none;
+}
+

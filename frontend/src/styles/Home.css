@@ -1,0 +1,122 @@
+.home {
+  font-family: "Segoe UI", sans-serif;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  height: 70vh;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero .overlay {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem 3rem;
+  border-radius: 12px;
+  text-align: center;
+  color: white;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.2rem;
+}
+
+/* Especialidades */
+.specialties {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  width: 260px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Beneficios */
+.benefits {
+  padding: 3rem 2rem;
+  background: #f5f7fa;
+  text-align: center;
+}
+
+.benefits-grid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.benefit {
+  background: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+/* CTA */
+.cta {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(90deg, #2f5fb3, #1a3d7c);
+  color: white;
+}
+
+.btn-primary {
+  background-color: white;
+  color: #2f5fb3;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+.btn-primary:hover {
+  background-color: #dce6f9;
+}
+
+.rights {
+  text-align: center;
+  padding: 1.5rem;
+  background: #1a3d7c;
+  color: white;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.rights p {
+  margin: 0.3rem 0;
+}

@@ -1,0 +1,92 @@
+.page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f4f7fb;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.container {
+  display: flex;
+  gap: 30px;
+}
+
+/* PANEL IZQUIERDO */
+.sidebar {
+  background: linear-gradient(135deg, #4a90e2, #357abd);
+  color: white;
+  padding: 25px;
+  border-radius: 16px;
+  width: 260px;
+}
+
+.sidebar h2 {
+  margin-bottom: 15px;
+}
+
+.info-box {
+  margin-top: 20px;
+  padding: 10px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 8px;
+}
+
+/* FORM */
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  width: 380px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  margin-bottom: 20px;
+  color: #2c5282;
+}
+
+.card input,
+.card select,
+.card textarea {
+  width: 100%;
+  padding: 11px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.card input:focus,
+.card select:focus,
+.card textarea:focus {
+  border-color: #4a90e2;
+}
+
+/* botón */
+.card button {
+  width: 100%;
+  padding: 12px;
+  background: #4a90e2;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.card button:hover {
+  background: #357abd;
+}
+
+.card textarea {
+  resize: none;
+  min-height: 100px;
+  max-height: 150px;
+}
+
+/* mensaje */
+.message {
+  margin-top: 10px;
+  text-align: center;
+}
