@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
-import Home from "./pages/Home";
-import Servicios from "./pages/Servicios";
-import Especialidades from "./pages/Especialidades";
-import Contacto from "./pages/Contacto";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Recover from "./pages/RecoverPassword";
-import RegisterClient from "./pages/RegisterClient";
-import RegisterProfessional from "./pages/RegisterProfessional";
+import Home from "./pages/home.module/Home";
+import Servicios from "./pages/servicios.module/Servicios";
+import Especialidades from "./pages/especialidades.module/Especialidades";
+import Contacto from "./pages/contacto.module/Contacto";
+import Login from "./pages/login.module/Login";
+import Register from "./pages/register.module/Register";
+import Recover from "./pages/recoverPassword.module/RecoverPassword";
+import RegisterClient from "./pages/registerClient.module/RegisterClient";
+import RegisterProfessional from "./pages/registerProfessional.module/RegisterProfessional";
 import "./index.css";
 
 // 👇 componente intermedio

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/Register.css"; // estilos opcionales
+import "./Register.css"; // estilos opcionales
 
 export default function Register() {
   // Estado para guardar los datos del formulario

@@ -1,5 +1,5 @@
-import "../styles/Home.css";
-import heroImage from "../assets/images/hero-bg.jpg"; // 👈 importa la imagen
+import "./Home.css";
+import heroImage from "../../assets/images/hero-bg.jpg" // 👈 importa la imagen
 
 export default function Home() {
   return (

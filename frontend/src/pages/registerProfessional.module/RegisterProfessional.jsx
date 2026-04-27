@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "../styles/RegisterProfessional.css"; // estilos opcionales
+import "./RegisterProfessional.css"; // estilos opcionales
 
 export default function RegisterProfessional() {
   const [user, setUser] = useState(null);
