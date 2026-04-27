@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import "../styles/RegisterClient.css"; // estilos opcionales
+import "./RegisterClient.css"; // estilos opcionales
 
 export default function RegisterClient() {
   const [form, setForm] = useState({

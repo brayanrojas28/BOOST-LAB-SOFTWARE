@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "../styles/RecoverPassword.css"; // Asegúrate de tener este archivo para estilos específicos de recuperación
+import "./RecoverPassword.css"; // Asegúrate de tener este archivo para estilos específicos de recuperación
 
 export default function Recover() {
   const [email, setEmail] = useState("");
