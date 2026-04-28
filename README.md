@@ -63,10 +63,10 @@ pages/
 ## 🚀 Instalación
 
 ### 1. Clonar repositorio
-
+---
 git clone https://github.com/brayanrojas28/BOOST-LAB-SOFTWARE.git
 cd BOOST-LAB-SOFTWARE
-
+---
 ---
 
 ## ▶️ Ejecución del proyecto
@@ -100,20 +100,20 @@ http://localhost:8080/api
 #### 🔹 Login
 
 **POST** `/auth/login`
-
+---
 json
 {
   "userName": "1111111111",
   "password": "123456"
 }
-
+---
 
 ---
 
 #### 🔹 Registro de usuario (primer paso)
 
 **POST** `/auth/register`
-
+---
 json
 {
   "userName": "111111111",
@@ -122,13 +122,13 @@ json
   "password": "123456",
   "role": "professional"
 }
-
+---
 ---
 
 ### 👤 Registro de Cliente (segundo paso)
 
 **POST** `/register/client`
-
+---
 json
 {
   "idUser": 2,
@@ -139,7 +139,7 @@ json
   "bio": "Me interesa aprender Matemáticas",
   "phoneNumber": "30000000000"
 }
-
+---
 ---
 
 ### 🧑‍💼 Registro de Profesional (segundo paso)
@@ -176,7 +176,7 @@ POST /register/professional
 POST /auth/login
 
 ---
-
+---
 ## 📁 Estructura del proyecto
 
 BOOST-LAB-SOFTWARE/
@@ -200,7 +200,7 @@ BOOST-LAB-SOFTWARE/
 │   │   └── services/
 │
 └── README.md
-
+---
 ---
 
 ## 📌 Funcionalidades
