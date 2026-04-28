@@ -100,20 +100,20 @@ http://localhost:8080/api
 #### 🔹 Login
 
 **POST** `/auth/login`
-
+```
 json
 {
   "userName": "1111111111",
   "password": "123456"
 }
-
+```
 
 ---
 
 #### 🔹 Registro de usuario (primer paso)
 
 **POST** `/auth/register`
-
+```
 json
 {
   "userName": "111111111",
@@ -122,13 +122,13 @@ json
   "password": "123456",
   "role": "professional"
 }
-
+```
 ---
 
 ### 👤 Registro de Cliente (segundo paso)
 
 **POST** `/register/client`
-
+```
 json
 {
   "idUser": 2,
@@ -139,13 +139,14 @@ json
   "bio": "Me interesa aprender Matemáticas",
   "phoneNumber": "30000000000"
 }
-
+```
 ---
 
 ### 🧑‍💼 Registro de Profesional (segundo paso)
 
 **POST** `/register/professional`
 
+```
 json
 {
   "idUser": 2,
@@ -155,7 +156,7 @@ json
   "softSkills": ["empatía", "comunicación"],
   "professionalLicense": "LIC-98765"
 }
-
+```
 ---
 
 ## 🧠 Flujo del sistema
@@ -175,8 +176,11 @@ POST /register/professional
 3. Login:
 POST /auth/login
 
-## 📁 Estructura del proyecto
 ---
+
+## 📁 Estructura del proyecto
+
+```
 BOOST-LAB-SOFTWARE/
 │
 ├── backend/
@@ -198,6 +202,8 @@ BOOST-LAB-SOFTWARE/
 │   │   └── services/
 │
 └── README.md
+```
+
 ---
 
 ## 📌 Funcionalidades
