@@ -10,7 +10,7 @@ export default function Home() {
         style={{ backgroundImage: `url(${heroImage})` }}
       >
         <div className="overlay">
-          <h1>Bienvenido a BOOST</h1>
+          <h1>Bienvenido a ños</h1>
           <p>Conecta con profesionales de confianza en un solo lugar.</p>
         </div>
       </div>
