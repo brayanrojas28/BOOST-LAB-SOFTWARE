@@ -1,8 +1,20 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', Roboto, sans-serif;
-  background-color: #f0f6ff;
-  color: #1a3d7c;
+  background-color: #F2F2F2;
+  color: #030347;
+}
+
+/* Variables de color */
+:root {
+  --primary-dark: #030347;
+  --primary-light: #F2F2F2;
+  --accent-blue: #1e5ba8;
+  --accent-light: #e8f0fe;
+  --text-dark: #030347;
+  --text-light: #ffffff;
+  --card-shadow: rgba(3, 3, 71, 0.1);
+  --hover-color: #1e5ba8;
 }
 
 h1, h2, h3 {
@@ -13,4 +25,59 @@ h1, h2, h3 {
   max-width: 1200px;
   margin: auto;
   padding: 2rem;
+}
+
+/* Estilos para botones */
+.btn-primary {
+  background-color: var(--primary-dark);
+  color: var(--text-light);
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(3, 3, 71, 0.2);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--primary-dark);
+  padding: 12px 24px;
+  border: 2px solid var(--primary-dark);
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn-outline:hover {
+  background-color: var(--primary-dark);
+  color: var(--text-light);
+  transform: translateY(-2px);
+}
+
+.btn-solid {
+  background-color: var(--accent-blue);
+  color: var(--text-light);
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  font-weight: 600;
+}
+
+.btn-solid:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(3, 3, 71, 0.2);
 }

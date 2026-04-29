@@ -7,29 +7,53 @@
 /* Hero */
 .hero {
   position: relative;
-  height: 70vh;
+  height: 60vh;
+  min-height: 400px;
   background-position: center;
   background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 .hero .overlay {
-  background: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(135deg, rgba(3, 3, 71, 0.9) 0%, rgba(30, 91, 168, 0.8) 100%);
   padding: 2rem 3rem;
-  border-radius: 12px;
+  border-radius: 16px;
   text-align: center;
   color: #F2F2F2;
+  max-width: 600px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  transform: translateY(0);
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero h1 {
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
+  font-weight: 700;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .hero p {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.95;
+  line-height: 1.5;
 }
 
 /* Container */
@@ -40,63 +64,120 @@
 }
 
 .section-subtitle {
-  font-size: 1rem;
-  color: #6a6a6a;
-  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 3rem;
   font-weight: 400;
+  text-align: center;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 /* Servicios */
 .services {
   padding: 4rem 2rem;
-  background: #F2F2F2;
+  background: linear-gradient(135deg, #F2F2F2 0%, #ffffff 100%);
+  position: relative;
+}
+
+.services::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
 }
 
 .services h2 {
   text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  color: #030347;
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-dark);
+  font-weight: 600;
+  position: relative;
+}
+
+.services h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-dark), var(--accent-blue));
+  border-radius: 2px;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.8rem;
+  margin-top: 3rem;
 }
 
 .service-card {
   background: white;
-  padding: 2rem;
+  padding: 1.8rem;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
-  border: 1px solid #F2F2F2;
+  border: 1px solid rgba(242, 242, 242, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary-dark), var(--accent-blue));
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover::before {
+  transform: scaleX(1);
 }
 
 .service-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(3, 3, 71, 0.15);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(3, 3, 71, 0.12);
+  border-color: var(--accent-blue);
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
 }
 
 .service-icon {
-  font-size: 3rem;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
   display: block;
+  transition: transform 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+  transform: scale(1.05);
 }
 
 .service-card h3 {
-  color: #030347;
-  margin-bottom: 0.5rem;
-  font-size: 1.3rem;
+  color: var(--primary-dark);
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
 
 .service-card p {
-  color: #6a6a6a;
-  font-size: 0.95rem;
+  color: #666;
+  font-size: 0.9rem;
   line-height: 1.5;
+  margin-bottom: 0;
 }
 
 /* Especialidades */
