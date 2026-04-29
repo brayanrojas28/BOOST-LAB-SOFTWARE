@@ -2,9 +2,9 @@ const mysql = require("mysql2/promise");
 
 // CONEXION A LA BASE DE DATOS MySQL
 const db = mysql.createPool({
-  host: "localhost",
+  host: "127.0.0.1",
   user: "root",
-  password: "admin123",        // CONTRASEÑA MySQL
+  password: "123456",        // CONTRASEÑA MySQL
   database: "boostSoft",
   waitForConnections: true,
   connectionLimit: 10,
