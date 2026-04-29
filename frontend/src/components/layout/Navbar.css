@@ -2,9 +2,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #2f5fb3;
+  background: #030347;
   padding: 1rem 2rem;
-  color: white;
+  color: #F2F2F2;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .logo {
@@ -19,9 +20,14 @@
 }
 
 .nav-links a {
-  color: white;
+  color: #F2F2F2;
   text-decoration: none;
   font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #1a1b5c;
 }
 
 .navbar-buttons {
@@ -31,9 +37,9 @@
 
 /* Botón outline */
 .btn-outline {
-  background: white;
-  color: #2f5fb3;
-  border: 2px solid white;
+  background: transparent;
+  color: #F2F2F2;
+  border: 2px solid #F2F2F2;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
   font-weight: 600;
@@ -42,14 +48,15 @@
 }
 
 .btn-outline:hover {
-  background: #dce6f9;
+  background: #F2F2F2;
+  color: #030347;
 }
 
 /* Botón sólido */
 .btn-solid {
-  background: white;
-  color: #2f5fb3;
-  border: 2px solid white;
+  background: #F2F2F2;
+  color: #030347;
+  border: 2px solid #F2F2F2;
   padding: 0.6rem 1.2rem;
   border-radius: 8px;
   font-weight: 600;
@@ -58,5 +65,7 @@
 }
 
 .btn-solid:hover {
-  background: #dce6f9;
+  background: transparent;
+  color: #F2F2F2;
+  border-color: #F2F2F2;
 }

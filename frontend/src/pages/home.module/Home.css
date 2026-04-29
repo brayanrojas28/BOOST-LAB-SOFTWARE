@@ -1,5 +1,7 @@
 .home {
   font-family: "Segoe UI", sans-serif;
+  color: #030347;
+  background: #F2F2F2;
 }
 
 /* Hero */
@@ -14,11 +16,11 @@
 }
 
 .hero .overlay {
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   padding: 2rem 3rem;
   border-radius: 12px;
   text-align: center;
-  color: white;
+  color: #F2F2F2;
 }
 
 .hero h1 {
@@ -30,93 +32,273 @@
   font-size: 1.2rem;
 }
 
+/* Container */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: #6a6a6a;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+/* Servicios */
+.services {
+  padding: 4rem 2rem;
+  background: #F2F2F2;
+}
+
+.services h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #030347;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.service-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid #F2F2F2;
+}
+
+.service-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(3, 3, 71, 0.15);
+}
+
+.service-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.service-card h3 {
+  color: #030347;
+  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+}
+
+.service-card p {
+  color: #6a6a6a;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
 /* Especialidades */
 .specialties {
-  text-align: center;
-  padding: 3rem 2rem;
+  padding: 4rem 2rem;
+  background: white;
 }
 
-.cards {
+.specialties h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #030347;
+}
+
+.specialties-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.specialty-item {
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+.specialty-badge {
+  background: #F2F2F2;
+  color: #030347;
+  padding: 0.8rem 1.5rem;
+  border-radius: 25px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.specialty-badge:hover {
+  background: #030347;
+  color: #F2F2F2;
+  transform: scale(1.05);
+}
+
+/* Contacto */
+.contact {
+  padding: 4rem 2rem;
+  background: #F2F2F2;
+}
+
+.contact h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #030347;
+}
+
+.contact-content {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 3rem;
+  align-items: center;
+  margin-top: 2rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.contact-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 2rem;
-  margin-top: 1.5rem;
-  flex-wrap: wrap;
 }
 
-.card {
-  background: white;
+.contact-item {
+  text-align: center;
   padding: 1.5rem;
+  background: white;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  width: 260px;
-  transition: transform 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #F2F2F2;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-}
-
-.icon {
-  font-size: 2rem;
+.contact-icon {
+  font-size: 2.5rem;
+  display: block;
   margin-bottom: 0.5rem;
 }
 
-/* Beneficios */
-.benefits {
-  padding: 3rem 2rem;
-  background: #f5f7fa;
-  text-align: center;
+.contact-item h3 {
+  color: #030347;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
 }
 
-.benefits-grid {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-  margin-top: 1rem;
-  flex-wrap: wrap;
+.contact-item p {
+  color: #6a6a6a;
+  font-size: 0.9rem;
 }
 
-.benefit {
-  background: white;
-  padding: 1rem 1.5rem;
+.btn-contact {
+  background: #030347;
+  color: #F2F2F2;
+  padding: 1rem 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  font-weight: 500;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s ease;
+  height: fit-content;
+}
+
+.btn-contact:hover {
+  background: #1a1b5c;
+  box-shadow: 0 6px 16px rgba(3, 3, 71, 0.3);
 }
 
 /* CTA */
 .cta {
   text-align: center;
-  padding: 3rem 2rem;
-  background: linear-gradient(90deg, #2f5fb3, #1a3d7c);
-  color: white;
+  padding: 4rem 2rem;
+  background: #F2F2F2;
+  color: #030347;
+}
+
+.cta h2,
+.cta p {
+  color: #030347;
+}
+
+.cta h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .btn-primary {
-  background-color: white;
-  color: #003083;
-  padding: 0.8rem 1.5rem;
+  background-color: #030347;
+  color: #F2F2F2;
+  padding: 1rem 2rem;
   border-radius: 8px;
   text-decoration: none;
-  font-weight: bold;
+  font-weight: 600;
   display: inline-block;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+  font-size: 1rem;
 }
 
 .btn-primary:hover {
-  background-color: #dce6f9;
+  background-color: #1a1b5c;
+  color: #F2F2F2;
+  box-shadow: 0 6px 16px rgba(3, 3, 71, 0.3);
+  transform: translateY(-2px);
 }
 
+/* Footer */
 .rights {
   text-align: center;
-  padding: 1.5rem;
-  background: #1a3d7c;
-  color: white;
+  padding: 2rem;
+  background: #030347;
+  color: #F2F2F2;
   font-size: 0.9rem;
-  border-top: 1px solid rgba(255,255,255,0.2);
+  border-top: 1px solid rgba(242, 242, 242, 0.2);
 }
 
 .rights p {
-  margin: 0.3rem 0;
+  margin: 0.5rem 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .services h2,
+  .specialties h2,
+  .contact h2,
+  .cta h2 {
+    font-size: 1.8rem;
+  }
+
+  .services-grid,
+  .specialties-grid {
+    gap: 1.5rem;
+  }
+
+  .contact-content {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info {
+    grid-template-columns: 1fr;
+  }
+
+  .section-container {
+    padding: 0 1rem;
+  }
 }
