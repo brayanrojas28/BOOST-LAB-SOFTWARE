@@ -1,14 +1,14 @@
-/* ESTILOS ORGANIZADOS PARA PÁGINA DE SERVICIOS */
+/* ESTILOS ORGANIZADOS PARA PÁGINA DE ESPECIALIDADES */
 
 /* ─── CONTENEDOR PRINCIPAL ─── */
-.servicios-page {
+.especialidades-page {
   min-height: 100vh;
   background: linear-gradient(135deg, #F2F2F2 0%, #ffffff 100%);
   font-family: 'Segoe UI', Roboto, sans-serif;
 }
 
 /* ─── HERO SECTION ─── */
-.servicios-hero {
+.especialidades-hero {
   background: linear-gradient(135deg, #030347, #1e5ba8);
   padding: 80px 20px;
   text-align: center;
@@ -17,7 +17,7 @@
   overflow: hidden;
 }
 
-.servicios-hero::before {
+.especialidades-hero::before {
   content: '';
   position: absolute;
   top: -50%;
@@ -33,7 +33,7 @@
   50% { transform: translateY(-30px) rotate(180deg); }
 }
 
-.servicios-hero h1 {
+.especialidades-hero h1 {
   font-size: 48px;
   margin-bottom: 15px;
   font-weight: 700;
@@ -54,41 +54,14 @@
   font-size: 18px;
   line-height: 1.6;
   max-width: 700px;
-  margin: 0 auto 40px auto;
+  margin: 0 auto;
   opacity: 0.85;
   position: relative;
   z-index: 1;
 }
 
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-  max-width: 900px;
-  margin: 0 auto;
-  position: relative;
-  z-index: 1;
-}
-
-.hero-badge {
-  background: rgba(255, 255, 255, 0.2);
-  padding: 12px 20px;
-  border-radius: 25px;
-  font-size: 14px;
-  font-weight: 500;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-}
-
-.hero-badge:hover {
-  background: rgba(255, 255, 255, 0.3);
-  transform: translateY(-2px);
-}
-
-/* ─── SECCIÓN DE SERVICIOS ─── */
-.servicios-section {
+/* ─── SECCIÓN DE ESPECIALIDADES ─── */
+.especialidades-section {
   padding: 80px 20px;
   background: white;
 }
@@ -96,6 +69,141 @@
 .section-inner {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.especialidades-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-top: 50px;
+}
+
+.especialidad-card {
+  background: white;
+  padding: 35px;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(3, 3, 71, 0.1);
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.especialidad-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(90deg, #030347, #1e5ba8);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.especialidad-card:hover::before {
+  transform: scaleX(1);
+}
+
+.especialidad-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(3, 3, 71, 0.2);
+  border-color: #1e5ba8;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+}
+
+.especialidad-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(242, 242, 242, 0.8);
+}
+
+.especialidad-icon {
+  font-size: 36px;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 4px 8px rgba(3, 3, 71, 0.2));
+}
+
+.especialidad-card:hover .especialidad-icon {
+  transform: scale(1.1) rotate(5deg);
+  filter: drop-shadow(0 6px 12px rgba(3, 3, 71, 0.3));
+}
+
+.especialidad-card h3 {
+  font-size: 20px;
+  margin: 0;
+  color: #030347;
+  font-weight: 600;
+}
+
+.especialidad-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+  padding: 15px;
+  background: rgba(242, 242, 242, 0.3);
+  border-radius: 10px;
+  border-left: 4px solid #1e5ba8;
+}
+
+.especialidad-list {
+  background: rgba(242, 242, 242, 0.2);
+  border-radius: 10px;
+  padding: 15px;
+  border: 1px solid rgba(3, 3, 71, 0.1);
+}
+
+.especialidad-list h4 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #030347;
+  font-weight: 600;
+  text-align: center;
+}
+
+.especialidad-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.especialidad-list li {
+  padding: 8px 0;
+  font-size: 14px;
+  color: #666;
+  position: relative;
+  padding-left: 25px;
+  border-bottom: 1px solid rgba(3, 3, 71, 0.1);
+  transition: all 0.2s ease;
+}
+
+.especialidad-list li:last-child {
+  border-bottom: none;
+}
+
+.especialidad-list li:hover {
+  color: #030347;
+  transform: translateX(5px);
+}
+
+.especialidad-list li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: #1e5ba8;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* ─── SECCIÓN DE PROCESO ─── */
+.process-section {
+  padding: 80px 20px;
+  background: linear-gradient(135deg, #030347, #1e5ba8);
+  color: white;
 }
 
 .section-header {
@@ -106,7 +214,7 @@
 .section-header h2 {
   font-size: 36px;
   margin-bottom: 15px;
-  color: #030347;
+  color: white;
   font-weight: 600;
   position: relative;
 }
@@ -119,150 +227,26 @@
   transform: translateX(-50%);
   width: 80px;
   height: 4px;
-  background: linear-gradient(90deg, #030347, #1e5ba8);
+  background: linear-gradient(90deg, #ffffff, #e8f0fe);
   border-radius: 2px;
 }
 
 .section-header p {
   font-size: 18px;
-  color: #666;
+  color: rgba(255, 255, 255, 0.8);
   max-width: 600px;
   margin: 20px auto 0;
   line-height: 1.6;
 }
 
-.services-grid {
+.process-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
   margin-top: 50px;
 }
 
-.service-card {
-  background: white;
-  padding: 35px;
-  border-radius: 16px;
-  box-shadow: 0 8px 25px rgba(3, 3, 71, 0.1);
-  border: 2px solid transparent;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.service-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 5px;
-  background: linear-gradient(90deg, #030347, #1e5ba8);
-  transform: scaleX(0);
-  transition: transform 0.3s ease;
-}
-
-.service-card:hover::before {
-  transform: scaleX(1);
-}
-
-.service-card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 40px rgba(3, 3, 71, 0.2);
-  border-color: #1e5ba8;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
-}
-
-.service-icon {
-  font-size: 48px;
-  display: block;
-  text-align: center;
-  margin-bottom: 20px;
-  transition: all 0.3s ease;
-  filter: drop-shadow(0 4px 8px rgba(3, 3, 71, 0.2));
-}
-
-.service-card:hover .service-icon {
-  transform: scale(1.1) rotate(5deg);
-  filter: drop-shadow(0 6px 12px rgba(3, 3, 71, 0.3));
-}
-
-.service-card h3 {
-  font-size: 22px;
-  margin-bottom: 15px;
-  color: #030347;
-  text-align: center;
-  font-weight: 600;
-}
-
-.service-card p {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #555;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-.service-card ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  background: rgba(242, 242, 242, 0.4);
-  border-radius: 10px;
-  padding: 15px;
-  border: 1px solid rgba(3, 3, 71, 0.1);
-}
-
-.service-card li {
-  padding: 8px 0;
-  font-size: 14px;
-  color: #666;
-  position: relative;
-  padding-left: 25px;
-  border-bottom: 1px solid rgba(3, 3, 71, 0.1);
-  transition: all 0.2s ease;
-}
-
-.service-card li:last-child {
-  border-bottom: none;
-}
-
-.service-card li:hover {
-  color: #030347;
-  transform: translateX(5px);
-}
-
-.service-card li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: #1e5ba8;
-  font-weight: bold;
-  font-size: 16px;
-}
-
-/* ─── SECCIÓN DE BENEFICIOS ─── */
-.benefits-section {
-  padding: 80px 20px;
-  background: linear-gradient(135deg, #030347, #1e5ba8);
-  color: white;
-}
-
-.benefits-section .section-header h2 {
-  color: white;
-}
-
-.benefits-section .section-header p {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-.benefits-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 25px;
-  margin-top: 50px;
-}
-
-.benefit-card {
+.process-card {
   background: rgba(255, 255, 255, 0.1);
   padding: 30px;
   border-radius: 16px;
@@ -272,31 +256,41 @@
   text-align: center;
 }
 
-.benefit-card:hover {
+.process-card:hover {
   transform: translateY(-5px);
   background: rgba(255, 255, 255, 0.15);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
 }
 
-.benefit-card h3 {
+.process-number {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #e8f0fe;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.process-card h3 {
   font-size: 20px;
   margin-bottom: 15px;
   font-weight: 600;
+  color: white;
 }
 
-.benefit-card p {
+.process-card p {
   font-size: 15px;
   line-height: 1.6;
   opacity: 0.9;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
-  .servicios-hero {
+  .especialidades-hero {
     padding: 60px 15px;
   }
   
-  .servicios-hero h1 {
+  .especialidades-hero h1 {
     font-size: 32px;
   }
   
@@ -308,47 +302,40 @@
     font-size: 16px;
   }
   
-  .hero-badges {
-    gap: 10px;
-  }
-  
-  .hero-badge {
-    font-size: 13px;
-    padding: 10px 15px;
-  }
-  
-  .servicios-section,
-  .benefits-section {
+  .especialidades-section,
+  .process-section {
     padding: 60px 15px;
   }
   
-  .section-header h2 {
-    font-size: 28px;
-  }
-  
-  .section-header p {
-    font-size: 16px;
-  }
-  
-  .services-grid {
+  .especialidades-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
   
-  .service-card {
+  .especialidad-card {
     padding: 25px;
   }
   
-  .service-icon {
-    font-size: 40px;
+  .especialidad-header {
+    flex-direction: column;
+    text-align: center;
   }
   
-  .benefits-grid {
+  .especialidad-icon {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+  
+  .process-grid {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
   }
   
-  .benefit-card {
+  .process-card {
     padding: 20px;
+  }
+  
+  .process-number {
+    font-size: 36px;
   }
 }
