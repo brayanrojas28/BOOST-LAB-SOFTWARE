@@ -1,7 +1,7 @@
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
-
-
+import heroImage from "../../assets/images/istockphoto-2160995068-612x612.jpg"; 
+import ctaImage from "../../assets/images/aptitudes-profesionales-mas-demandadas.jpg";
 export default function Home() {
   const navigate = useNavigate();
 
@@ -41,7 +41,12 @@ export default function Home() {
       {/* HERO CON IMAGEN DE FONDO OSCURECIDA */}
       <section
         className="hero"
-        style={{ backgroundImage: `url(https://media.istockphoto.com/id/2160995068/es/foto/grupo-diverso-de-profesionales-de-negocios-que-colaboran-en-una-oficina-moderna.jpg?s=612x612&w=0&k=20&c=MJTjv0yUypB7y_T0B14MuOg7sdxrrFoiqeJJrlVB42Y=)` }}
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
         {/* Overlay oscuro encima de la imagen */}
         <div className="hero-overlay" />
@@ -68,8 +73,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BENEFICIOS CON PANELES MODERNOS */}
-      <section className="benefits-section">
+      {/* BENEFICIOS CON PANELES */}
+      <section
+        className="benefits-section"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1600')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Overlay oscuro encima de la imagen */}
+        <div className="benefits-overlay" />
+
         <div className="section-container">
           <h2>Servicios Online Funcionales y Efectivos</h2>
           <p className="section-intro">Descubre por qué nuestros servicios online son la mejor opción para tu bienestar</p>
@@ -117,7 +133,16 @@ export default function Home() {
       </section>
 
       {/* CTA FINAL */}
-      <section className="final-cta">
+      <section
+        className="final-cta"
+        style={{
+          backgroundImage: `url(${ctaImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="cta-overlay" />
         <div className="cta-content">
           <h2>¿Listo para comenzar?</h2>
           <p>Únete a nuestra comunidad de bienestar hoy mismo</p>
