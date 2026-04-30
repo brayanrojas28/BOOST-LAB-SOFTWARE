@@ -13,19 +13,21 @@ export const register = async (data) => {
     body: JSON.stringify(data),
   });
 
-  if (!res.ok) throw new Error("Error en registro");
-  return res.json(); // devolvemos la respuesta del backend
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || "Error en registro");
+  return result; // devolvemos la respuesta del backend
 };
 
 
 //LOGIN
-export const login = async (userName, password) => {
+export const login = async (data) => {
   const res = await fetch(`${API_URL}/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ userName, password }),
+    body: JSON.stringify(data),
   });
 
-  if (!res.ok) throw new Error("Credenciales inválidas");
-  return res.json(); // aquí recibes token y role
+  const result = await res.json();
+  if (!res.ok) throw new Error(result.message || "Credenciales inválidas");
+  return result; // aquí token y role
 };

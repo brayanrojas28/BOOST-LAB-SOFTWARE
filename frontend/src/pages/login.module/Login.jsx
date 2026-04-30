@@ -10,6 +10,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const handleSubmitWithLoading = async (e) => {
+    e.preventDefault();
     setLoading(true);
     try {
       await handleSubmit(e);
@@ -39,7 +40,7 @@ export default function Login() {
           <div className="login-header">
             <div className="login-icon">👤</div>
             <h1>Bienvenido</h1>
-            <p className="subtitle">Inicia sesión en tu cuenta</p>
+            <p className="subtitle">Iniciar sesión en BOOST</p>
           </div>
 
           {/* Error Message */}
@@ -55,7 +56,7 @@ export default function Login() {
             <div className="form-group">
               <label htmlFor="userName">Número de Documento</label>
               <div className="input-wrapper">
-                <span className="input-icon">📄</span>
+                <span className="input-icon">🪪</span>
                 <input
                   id="userName"
                   type="text"
@@ -122,12 +123,8 @@ export default function Login() {
 
           {/* Footer */}
           <div className="login-footer">
-            <p>¿No tienes cuenta?</p>
-            <div className="register-links">
-              <a href="/register" className="register-link">Registrarse como Cliente</a>
-              <span className="divider">•</span>
-              <a href="/register/professional" className="register-link">Registrarse como Profesional</a>
-            </div>
+            <p>¿Aún no tienes cuenta?</p>
+              <a href="/register" className="register-link">Registrate Aquí</a>
           </div>
         </div>
       </div>
