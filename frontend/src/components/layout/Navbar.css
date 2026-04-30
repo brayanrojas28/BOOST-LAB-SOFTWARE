@@ -21,11 +21,10 @@
 }
 
 /* Logo */
-.logo {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #F2F2F2;
-  letter-spacing: 2px;
+.logo-img {
+  width: 170px; /* ajusta según el tamaño que quieras */
+  height: 50px;
+  object-fit: contain;
 }
 
 /* Links */
