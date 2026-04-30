@@ -1,6 +1,7 @@
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
 
+
 export default function Home() {
   const navigate = useNavigate();
 
@@ -36,8 +37,15 @@ export default function Home() {
 
   return (
     <div className="home">
-      {/* HERO SIMPLIFICADO */}
-      <section className="hero">
+
+      {/* HERO CON IMAGEN DE FONDO OSCURECIDA */}
+      <section
+        className="hero"
+        style={{ backgroundImage: `url(https://media.istockphoto.com/id/2160995068/es/foto/grupo-diverso-de-profesionales-de-negocios-que-colaboran-en-una-oficina-moderna.jpg?s=612x612&w=0&k=20&c=MJTjv0yUypB7y_T0B14MuOg7sdxrrFoiqeJJrlVB42Y=)` }}
+      >
+        {/* Overlay oscuro encima de la imagen */}
+        <div className="hero-overlay" />
+
         <div className="hero-content">
           <h1>Transforma Tu Vida</h1>
           <p>Conecta con profesionales certificados en un espacio seguro y confidencial</p>
@@ -65,7 +73,7 @@ export default function Home() {
         <div className="section-container">
           <h2>Servicios Online Funcionales y Efectivos</h2>
           <p className="section-intro">Descubre por qué nuestros servicios online son la mejor opción para tu bienestar</p>
-          
+
           <div className="benefits-grid">
             {benefits.map((b, i) => (
               <div key={i} className="benefit-panel">
@@ -82,11 +90,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SECTION ADICIONAL - TESTIMONIOS VISUAL */}
+      {/* IMPACTO / MÉTRICAS */}
       <section className="impact-section">
         <div className="section-container">
           <h2>Tu Transformación Comienza Aquí</h2>
-          
+
           <div className="impact-grid">
             <div className="impact-card">
               <h3>500+</h3>
@@ -108,7 +116,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA FINAL ÚNICO */}
+      {/* CTA FINAL */}
       <section className="final-cta">
         <div className="cta-content">
           <h2>¿Listo para comenzar?</h2>

@@ -27,7 +27,10 @@
 
 /* ═════════════════════════ HERO SECTION ═════════════════════════ */
 .hero {
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+  /* la imagen llega por inline style desde el JSX */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   padding: 120px 20px;
   min-height: 500px;
   display: flex;
@@ -38,20 +41,16 @@
   text-align: center;
 }
 
-.hero::before {
-  content: '';
+/* Overlay oscuro semitransparente encima de la imagen */
+.hero-overlay {
   position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle, rgba(242, 242, 242, 0.1) 0%, transparent 70%);
-  animation: float-bg 8s ease-in-out infinite;
-}
-
-@keyframes float-bg {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-30px); }
+  inset: 0;               /* top/right/bottom/left: 0 en una sola línea */
+  background: linear-gradient(
+    135deg,
+    rgba(3, 3, 71, 0.78) 0%,
+    rgba(26, 27, 92, 0.65) 100%
+  );
+  z-index: 1;
 }
 
 .hero-content {
@@ -146,14 +145,14 @@
 .benefits-section h2 {
   text-align: center;
   font-size: 42px;
-  color: var(--primary-dark);
+  color: #ffffff;
   margin-bottom: 20px;
   font-weight: 700;
 }
 
 .section-intro {
   text-align: center;
-  color: #666;
+  color: #ffffff;
   font-size: 17px;
   margin-bottom: 60px;
   max-width: 600px;
