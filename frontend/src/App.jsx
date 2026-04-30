@@ -16,6 +16,8 @@ function Layout() {
   const location = useLocation();
 
   const hideNavbarRoutes = [
+    "/login",
+    "/register",
     "/register/client",
     "/register/professional"
   ];
