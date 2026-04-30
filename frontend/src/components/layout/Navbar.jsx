@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import infinityDark from "../../assets/images/logoBoost.png";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -7,7 +8,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="logo">BOOST</div>
+      <img src={infinityDark} alt="Logo BOOST" className="logo-img" />
 
       <ul className="nav-links">
         <Link to="/" className={isActive("/") ? "active" : ""}>Home</Link>
