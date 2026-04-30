@@ -52,6 +52,8 @@ export default function Servicios() {
           BOOST es tu aliado para el crecimiento personal y profesional. Te conectamos
           con expertos certificados en psicología, finanzas, educación y desarrollo
           laboral — todo en un solo lugar, de forma segura y personalizada.
+
+          
         </p>
         <div className="hero-badges">
           <span className="hero-badge">✅ Profesionales certificados</span>

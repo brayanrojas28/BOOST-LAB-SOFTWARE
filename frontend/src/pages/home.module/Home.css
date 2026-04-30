@@ -93,9 +93,11 @@
   font-weight: 700;
 }
 
+/* ── Flex con cards de tamaño fijo → la última se centra sin encogerse ── */
 .features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 30px;
 }
 
@@ -106,6 +108,10 @@
   text-align: center;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  /* Mismo ancho que una columna de 3: (100% - 2 gaps) / 3 */
+  flex: 0 0 calc(33.333% - 20px);
+  max-width: calc(33.333% - 20px);
+  min-width: 280px;
 }
 
 .feature-card:hover {
@@ -163,12 +169,12 @@
 }
 
 .benefit-panel {
-  background: var(--white);
+  background: linear-gradient(135deg, #f8f9ff 0%, #ffffff 100%);
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 8px 25px rgba(3, 3, 71, 0.12);
   transition: all 0.3s ease;
-  border: 2px solid transparent;
+  border: 2px solid rgba(3, 3, 71, 0.1);
 }
 
 .benefit-panel:hover {
@@ -190,6 +196,7 @@
 
 .panel-body {
   padding: 30px;
+  background: linear-gradient(135deg, rgba(3, 3, 71, 0.02) 0%, rgba(242, 242, 242, 0.3) 100%);
 }
 
 .panel-body h3 {
@@ -200,7 +207,7 @@
 }
 
 .panel-body p {
-  color: #666;
+  color: #333;
   line-height: 1.7;
   font-size: 15px;
 }
@@ -407,7 +414,12 @@
     font-size: 28px;
   }
 
-  .features-grid,
+  /* En móvil las feature-cards ocupan todo el ancho */
+  .feature-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+
   .benefits-grid,
   .services-grid,
   .impact-grid {
