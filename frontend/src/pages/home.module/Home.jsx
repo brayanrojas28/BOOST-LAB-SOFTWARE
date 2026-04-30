@@ -1,128 +1,160 @@
 import "./Home.css";
-import heroImage from "../../assets/images/hero-bg.jpg"
-
+import { useNavigate } from "react-router-dom";
+import heroImage from "../../assets/images/istockphoto-2160995068-612x612.jpg"; 
+import ctaImage from "../../assets/images/aptitudes-profesionales-mas-demandadas.jpg";
 export default function Home() {
+  const navigate = useNavigate();
+
+  const features = [
+    { icon: "🌍", title: "Acceso Global", desc: "Conéctate con profesionales desde cualquier lugar" },
+    { icon: "⏱️", title: "Flexibilidad de Horarios", desc: "Agenda sesiones que se adapten a tu vida" },
+    { icon: "🔒", title: "Privacidad Garantizada", desc: "Tu información está protegida y confidencial" },
+    { icon: "💬", title: "Disponibilidad 24/7", desc: "Soporte cuando lo necesites" },
+  ];
+
+  const benefits = [
+    {
+      icon: "✨",
+      title: "Comodidad en tu Espacio",
+      desc: "Recibe asesoría desde la comodidad de tu hogar, sin desplazamientos innecesarios. Ahorra tiempo y dinero."
+    },
+    {
+      icon: "🎯",
+      title: "Profesionales Certificados",
+      desc: "Acceso a expertos verificados en psicología, finanzas, educación y más. Todos con experiencia comprobada."
+    },
+    {
+      icon: "📱",
+      title: "Tecnología Segura",
+      desc: "Plataforma cifrada y con estándares de seguridad internacionales. Tu privacidad es nuestra prioridad."
+    },
+    {
+      icon: "💡",
+      title: "Resultados Comprobados",
+      desc: "Miles de personas han transformado sus vidas. Metodologías basadas en investigación científica."
+    },
+  ];
+
   return (
     <div className="home">
-      {/* Hero */}
-      <div 
-        className="hero" 
-        style={{ backgroundImage: `url(${heroImage})` }}
+
+      {/* HERO CON IMAGEN DE FONDO OSCURECIDA */}
+      <section
+        className="hero"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
       >
-        <div className="overlay">
-          <h1>Bienvenido a BOOST</h1>
-          <p>Conecta con profesionales de confianza en un solo lugar.</p>
-        </div>
-      </div>
+        {/* Overlay oscuro encima de la imagen */}
+        <div className="hero-overlay" />
 
-      {/* Servicios */}
-      <section className="services">
+        <div className="hero-content">
+          <h1>Transforma Tu Vida</h1>
+          <p>Conecta con profesionales certificados en un espacio seguro y confidencial</p>
+        </div>
+      </section>
+
+      {/* CARACTERÍSTICAS PRINCIPALES */}
+      <section className="features-section">
         <div className="section-container">
-          <h2>Nuestros Servicios</h2>
-          <p className="section-subtitle">Explora la variedad de servicios profesionales disponibles</p>
-          <div className="services-grid">
-            <div className="service-card">
-              <div className="service-icon">🧠</div>
-              <h3>Psicología</h3>
-              <p>Terapia individual y grupal con psicólogos profesionales</p>
+          <h2>¿Por qué elegir servicios online?</h2>
+          <div className="features-grid">
+            {features.map((f, i) => (
+              <div key={i} className="feature-card">
+                <div className="feature-icon">{f.icon}</div>
+                <h3>{f.title}</h3>
+                <p>{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BENEFICIOS CON PANELES */}
+      <section
+        className="benefits-section"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1600')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Overlay oscuro encima de la imagen */}
+        <div className="benefits-overlay" />
+
+        <div className="section-container">
+          <h2>Servicios Online Funcionales y Efectivos</h2>
+          <p className="section-intro">Descubre por qué nuestros servicios online son la mejor opción para tu bienestar</p>
+
+          <div className="benefits-grid">
+            {benefits.map((b, i) => (
+              <div key={i} className="benefit-panel">
+                <div className="panel-top">
+                  <span className="panel-icon">{b.icon}</span>
+                </div>
+                <div className="panel-body">
+                  <h3>{b.title}</h3>
+                  <p>{b.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* IMPACTO / MÉTRICAS */}
+      <section className="impact-section">
+        <div className="section-container">
+          <h2>Tu Transformación Comienza Aquí</h2>
+
+          <div className="impact-grid">
+            <div className="impact-card">
+              <h3>500+</h3>
+              <p>Profesionales Certificados</p>
             </div>
-            <div className="service-card">
-              <div className="service-icon">�</div>
-              <h3>Terapias</h3>
-              <p>Diferentes enfoques terapéuticos adaptados a tus necesidades</p>
+            <div className="impact-card">
+              <h3>10K+</h3>
+              <p>Usuarios Satisfechos</p>
             </div>
-            <div className="service-card">
-              <div className="service-icon">💰</div>
-              <h3>Asesoría Financiera</h3>
-              <p>Planificación y gestión financiera personal y empresarial</p>
+            <div className="impact-card">
+              <h3>4.9 ⭐</h3>
+              <p>Calificación Promedio</p>
             </div>
-            <div className="service-card">
-              <div className="service-icon">💼</div>
-              <h3>Tutorías Laborales</h3>
-              <p>Orientación profesional y desarrollo de carrera</p>
-            </div>
-            <div className="service-card">
-              <div className="service-icon">📚</div>
-              <h3>Tutorías Educativas</h3>
-              <p>Apoyo académico y desarrollo de habilidades de aprendizaje</p>
+            <div className="impact-card">
+              <h3>24/7</h3>
+              <p>Disponibilidad Online</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Especialidades */}
-      <section className="specialties">
-        <div className="section-container">
-          <h2>🎯 Áreas de Especialización</h2>
-          <p className="section-subtitle">Profesionales certificados en las áreas más importantes para tu bienestar</p>
-          <div className="specialties-grid">
-            <div className="specialty-item">
-              <span className="specialty-badge">😰 Ansiedad</span>
-            </div>
-            <div className="specialty-item">
-              <span className="specialty-badge">😔 Depresión</span>
-            </div>
-            <div className="specialty-item">
-              <span className="specialty-badge">💑 Relaciones</span>
-            </div>
-            <div className="specialty-item">
-              <span className="specialty-badge">💪 Autoestima</span>
-            </div>
-            <div className="specialty-item">
-              <span className="specialty-badge">😓 Estrés</span>
-            </div>
-            <div className="specialty-item">
-              <span className="specialty-badge">👨‍👩‍👧‍👦 Familia</span>
-            </div>
-            <div className="specialty-item">
-              <span className="specialty-badge">🚭 Adicciones</span>
-            </div>
-            <div className="specialty-item">
-              <span className="specialty-badge">💔 Trauma</span>
-            </div>
-          </div>
+      {/* CTA FINAL */}
+      <section
+        className="final-cta"
+        style={{
+          backgroundImage: `url(${ctaImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        <div className="cta-overlay" />
+        <div className="cta-content">
+          <h2>¿Listo para comenzar?</h2>
+          <p>Únete a nuestra comunidad de bienestar hoy mismo</p>
+          <button className="btn-primary-large" onClick={() => navigate("/register")}>
+            Registrarse Ahora
+          </button>
         </div>
       </section>
 
-      {/* Contacto Rápido */}
-      <section className="contact">
-        <div className="section-container">
-          <h2>📞 Contáctanos</h2>
-          <p className="section-subtitle">Estamos aquí para ayudarte en tu camino hacia el bienestar</p>
-          <div className="contact-content">
-            <div className="contact-info">
-              <div className="contact-item">
-                <span className="contact-icon">📧</span>
-                <h3>Email</h3>
-                <p>info@boost.com</p>
-              </div>
-              <div className="contact-item">
-                <span className="contact-icon">📱</span>
-                <h3>Teléfono</h3>
-                <p>+57 123 456 7890</p>
-              </div>
-              <div className="contact-item">
-                <span className="contact-icon">🌐</span>
-                <h3>Atención</h3>
-                <p>Online 24/7</p>
-              </div>
-            </div>
-            <a href="/contacto" className="btn-contact">💬 Enviar Mensaje</a>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="cta">
-        <h2>🚀 Comienza tu Transformación</h2>
-        <p>Únete a miles de personas que han mejorado su calidad de vida con BOOST</p>
-        <a href="/register" className="btn-primary">✨ Registrarse Ahora</a>
-      </section>
-
-      {/* Footer */}
-      <footer className="rights">
-        <p>© 2026 BOOST. Todos los derechos reservados.</p>
-        <p>Diseñado con ❤️ por BoostLabSoftware</p>
+      {/* FOOTER */}
+      <footer className="footer">
+        <p>© 2026 BOOST | Transformando vidas, un paso a la vez</p>
       </footer>
     </div>
   );
