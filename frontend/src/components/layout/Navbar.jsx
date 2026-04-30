@@ -17,8 +17,8 @@ export default function Navbar() {
       </ul>
 
       <div className="navbar-buttons">
-        <Link to="/login" className="btn btn-outline">Ingresar</Link>
-        <Link to="/register" className="btn btn-solid">Registrarse</Link>
+        <Link to="/login" className="btn btn-outline">Iniciar Sesión</Link>
+        <Link to="/register" className="btn btn-outline">Crear Cuenta</Link>
       </div>
     </nav>
   );
