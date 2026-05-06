@@ -23,7 +23,19 @@ export default function RegisterProfessional() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const rawUser = localStorage.getItem("user");
+    let storedUser = null;
+    try {
+      const validRawUser = rawUser && rawUser !== "undefined" ? rawUser : null;
+      if (!validRawUser && rawUser) {
+        localStorage.removeItem("user");
+      }
+      storedUser = validRawUser ? JSON.parse(validRawUser) : null;
+    } catch (parseError) {
+      console.error("Invalid user in localStorage:", rawUser, parseError);
+      localStorage.removeItem("user");
+    }
+
     if (storedUser) {
       setUser(storedUser);
     } else {
@@ -92,7 +104,7 @@ export default function RegisterProfessional() {
 
       setMessage("✅ Perfil profesional registrado correctamente");
       setTimeout(() => {
-        navigate("/");
+        navigate("/professional/dashboard");
       }, 2000);
 
     } catch (err) {

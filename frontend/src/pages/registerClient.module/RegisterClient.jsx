@@ -16,7 +16,19 @@ export default function RegisterClient() {
 
   // cargar usuario desde localStorage
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const rawUser = localStorage.getItem("user");
+    let storedUser = null;
+    try {
+      const validRawUser = rawUser && rawUser !== "undefined" ? rawUser : null;
+      if (!validRawUser && rawUser) {
+        localStorage.removeItem("user");
+      }
+      storedUser = validRawUser ? JSON.parse(validRawUser) : null;
+    } catch (parseError) {
+      console.error("Invalid user in localStorage:", rawUser, parseError);
+      localStorage.removeItem("user");
+    }
+
     setUser(storedUser);
   }, []);
 
