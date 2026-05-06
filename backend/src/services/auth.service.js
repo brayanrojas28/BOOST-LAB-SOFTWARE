@@ -50,10 +50,28 @@ const register = async ({ userName, fullName, email, password, role}) => {
     };
   }
 
+  // Crear token JWT para mantener la sesión activa después del registro
+  const token = jwt.sign(
+    {
+      idUser,
+      role: role === "professional" ? "professional" : "client"
+    },
+    "secreto_super_seguro",
+    { expiresIn: "2h" }
+  );
+
   // Respuesta
   return {
     message: "Usuario registrado",
     userId: idUser,
+    token,
+    user: {
+      id: idUser,
+      userName,
+      fullName,
+      email,
+      role: role === "professional" ? "professional" : "client"
+    },
     professional
   };
 };
