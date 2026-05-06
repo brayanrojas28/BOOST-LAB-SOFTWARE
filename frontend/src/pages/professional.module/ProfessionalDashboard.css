@@ -1,0 +1,129 @@
+.professional-dashboard {
+  min-height: calc(100vh - 70px);
+  background: linear-gradient(135deg, #f5f8ff 0%, #f0f6ff 100%);
+  padding: 3rem 2rem;
+}
+
+.dashboard-header {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+
+.dashboard-header h1 {
+  margin: 0 0 0.75rem;
+  color: #0f2147;
+  font-size: 2.5rem;
+}
+
+.dashboard-subtitle {
+  margin: 0;
+  color: #536182;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.dashboard-grid {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-align: center;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.card-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.dashboard-card h2 {
+  margin: 0 0 0.75rem;
+  color: #162b5c;
+  font-size: 1.35rem;
+}
+
+.dashboard-card p {
+  margin: 0 0 1.5rem;
+  color: #5f6f92;
+  line-height: 1.5;
+}
+
+.btn-card {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  background: #1d4ed8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-card:hover {
+  background: #1e40af;
+}
+
+.dashboard-actions {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-home {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2rem;
+  background: #f3f4f6;
+  color: #1f2937;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-home:hover {
+  background: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+.loading {
+  color: #1f2937;
+  font-size: 1.1rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .professional-dashboard {
+    padding: 2rem 1rem;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}

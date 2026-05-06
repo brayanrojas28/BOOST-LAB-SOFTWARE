@@ -1,7 +1,8 @@
 import "./Home.css";
 import { useNavigate } from "react-router-dom";
-import heroImage from "../../assets/images/istockphoto-2160995068-612x612.jpg"; 
-import ctaImage from "../../assets/images/aptitudes-profesionales-mas-demandadas.jpg";
+import heroImage from "../../assets/images/imagenFront1.jpg"; 
+import img2 from "../../assets/images/imagenFront2.jpg";
+import ctaImage from "../../assets/images/imagenFront3.jpg";
 export default function Home() {
   const navigate = useNavigate();
 
@@ -77,7 +78,7 @@ export default function Home() {
       <section
         className="benefits-section"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1600')`,
+          backgroundImage: `url(${img2})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'

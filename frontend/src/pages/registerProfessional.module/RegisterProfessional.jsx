@@ -23,7 +23,19 @@ export default function RegisterProfessional() {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const rawUser = localStorage.getItem("user");
+    let storedUser = null;
+    try {
+      const validRawUser = rawUser && rawUser !== "undefined" ? rawUser : null;
+      if (!validRawUser && rawUser) {
+        localStorage.removeItem("user");
+      }
+      storedUser = validRawUser ? JSON.parse(validRawUser) : null;
+    } catch (parseError) {
+      console.error("Invalid user in localStorage:", rawUser, parseError);
+      localStorage.removeItem("user");
+    }
+
     if (storedUser) {
       setUser(storedUser);
     } else {
@@ -90,9 +102,9 @@ export default function RegisterProfessional() {
 
       if (!res.ok) throw new Error(data.error);
 
-      setMessage("✅ Perfil profesional registrado correctamente");
+      setMessage("Perfil profesional registrado correctamente");
       setTimeout(() => {
-        navigate("/");
+        navigate("/professional/dashboard");
       }, 2000);
 
     } catch (err) {
@@ -155,8 +167,6 @@ export default function RegisterProfessional() {
                 <option value="Medellín">Medellín</option>
                 <option value="Bogotá">Bogotá</option>
                 <option value="Cali">Cali</option>
-                <option value="Barranquilla">Barranquilla</option>
-                <option value="Cartagena">Cartagena</option>
               </select>
 
               <input
@@ -168,6 +178,9 @@ export default function RegisterProfessional() {
                 disabled={loading}
               />
 
+              <legend style={{ color: "#030347", fontWeight: "400", marginBottom: "0rem", fontSize: "0.80rem", marginTop: "0.95rem" }}>
+                Fecha de Nacimiento *
+              </legend>
               <input
                 type="date"
                 name="birthDate"
@@ -185,15 +198,6 @@ export default function RegisterProfessional() {
                 Experiencia Profesional
               </legend>
 
-              <textarea
-                name="bio"
-                placeholder="Biografía profesional * (Cuéntanos sobre ti, tu experiencia y especialidades)"
-                value={form.bio}
-                onChange={handleChange}
-                disabled={loading}
-                required
-              />
-
               <select
                 name="profession"
                 value={form.profession}
@@ -206,7 +210,6 @@ export default function RegisterProfessional() {
                 <option value="finanzas">Asesor/a Financiero</option>
                 <option value="educativo">Tutor/a Educativo</option>
                 <option value="laboral">Asesor/a Laboral</option>
-                <option value="terapia">Terapeuta</option>
                 <option value="coach">Coach de Vida</option>
               </select>
 
@@ -224,8 +227,17 @@ export default function RegisterProfessional() {
               <input
                 type="text"
                 name="professionalLicense"
-                placeholder="Carnet/Licencia Profesional *"
+                placeholder="Tarjeta Profesional *"
                 value={form.professionalLicense}
+                onChange={handleChange}
+                disabled={loading}
+                required
+              />
+
+              <textarea
+                name="bio"
+                placeholder="Perfil profesional *  (Cuéntanos sobre ti, tu experiencia y especialidades)"
+                value={form.bio}
                 onChange={handleChange}
                 disabled={loading}
                 required
