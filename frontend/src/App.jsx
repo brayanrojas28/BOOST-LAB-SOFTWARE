@@ -11,6 +11,8 @@ import RegisterClient from "./pages/registerClient.module/RegisterClient";
 import RegisterProfessional from "./pages/registerProfessional.module/RegisterProfessional";
 import ProfessionalDashboard from "./pages/professional.module/ProfessionalDashboard";
 import ClientDashboard from "./pages/client.module/ClientDashboard";
+import ProfessionalProfile from "./pages/professional.module/ProfessionalProfile";
+import ClientProfile from "./pages/client.module/ClientProfile";
 import "./index.css";
 
 // 👇 componente intermedio
@@ -23,7 +25,9 @@ function Layout() {
     "/register/client",
     "/register/professional",
     "/professional/dashboard",
-    "/client/dashboard"
+    "/client/dashboard",
+    "/professional/profile",
+    "/client/profile"
   ];
 
   const hideNavbar = hideNavbarRoutes.includes(location.pathname);
@@ -44,6 +48,8 @@ function Layout() {
         <Route path="/register/professional" element={<RegisterProfessional />} />
         <Route path="/professional/dashboard" element={<ProfessionalDashboard />} />
         <Route path="/client/dashboard" element={<ClientDashboard />} />
+        <Route path="/professional/profile" element={<ProfessionalProfile />} />
+        <Route path="/client/profile" element={<ClientProfile />} />
       </Routes>
     </>
   );

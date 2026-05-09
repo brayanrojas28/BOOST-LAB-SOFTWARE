@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import "./RegisterProfessional.css";
 
 export default function RegisterProfessional() {
   const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [searchParams] = useSearchParams();
+  const isEditMode = searchParams.get("edit") === "true";
 
   const [form, setForm] = useState({
     phoneNumber: "",
@@ -38,6 +40,20 @@ export default function RegisterProfessional() {
 
     if (storedUser) {
       setUser(storedUser);
+      // Si hay datos en el usuario, prellenar el formulario con todos los datos guardados
+      setForm(prev => ({
+        ...prev,
+        phoneNumber: storedUser.phoneNumber || "",
+        city: storedUser.city || "",
+        address: storedUser.address || "",
+        birthDate: storedUser.birthDate || "",
+        bio: storedUser.bio || "",
+        profession: storedUser.profession || "",
+        experience: storedUser.experience || "",
+        languages: storedUser.languages || [],
+        softSkills: storedUser.softSkills || [],
+        professionalLicense: storedUser.professionalLicense || ""
+      }));
     } else {
       navigate("/login");
     }
@@ -102,10 +118,27 @@ export default function RegisterProfessional() {
 
       if (!res.ok) throw new Error(data.error);
 
-      setMessage("Perfil profesional registrado correctamente");
+      // Actualizar usuario en localStorage con datos completos y dataCompleted: true
+      const updatedUser = { 
+        ...user, 
+        phoneNumber: form.phoneNumber,
+        city: form.city,
+        address: form.address,
+        birthDate: form.birthDate,
+        bio: form.bio,
+        profession: form.profession,
+        experience: form.experience,
+        languages: form.languages,
+        softSkills: form.softSkills,
+        professionalLicense: form.professionalLicense,
+        dataCompleted: true 
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      setMessage("✅ Perfil profesional registrado correctamente");
       setTimeout(() => {
         navigate("/professional/dashboard");
-      }, 2000);
+      }, 1500);
 
     } catch (err) {
       setMessage("❌ Error: " + err.message);
@@ -126,7 +159,11 @@ export default function RegisterProfessional() {
           <p style={{ fontSize: "0.85rem", color: "#999" }}>{user.email}</p>
 
           <div className="info-box">
-            <p>Completa tu información profesional para ofrecer servicios en BOOST 🚀</p>
+            <p>
+              {isEditMode 
+                ? "Actualiza tu información profesional en cualquier momento 📝"
+                : "Completa tu información profesional para ofrecer servicios en BOOST 🚀"}
+            </p>
           </div>
 
           <div style={{ marginTop: "1.5rem", paddingTop: "1.5rem", borderTop: "1px solid #d0d0d0" }}>

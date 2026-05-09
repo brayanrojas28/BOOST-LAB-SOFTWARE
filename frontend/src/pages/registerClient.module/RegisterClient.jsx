@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import "./RegisterClient.css"; // estilos opcionales
 
 export default function RegisterClient() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const isEditMode = searchParams.get("edit") === "true";
+  
   const [form, setForm] = useState({
     phoneNumber: "",
     city: "",
@@ -32,6 +35,18 @@ export default function RegisterClient() {
     }
 
     setUser(storedUser);
+    // Si hay datos en el usuario, prellenar el formulario
+    if (storedUser) {
+      setForm(prev => ({
+        ...prev,
+        phoneNumber: storedUser.phoneNumber || "",
+        city: storedUser.city || "",
+        address: storedUser.address || "",
+        birthDate: storedUser.birthDate || "",
+        occupation: storedUser.occupation || "",
+        bio: storedUser.bio || ""
+      }));
+    }
   }, []);
 
   const handleChange = (e) => {
@@ -64,10 +79,23 @@ export default function RegisterClient() {
 
       if (!res.ok) throw new Error(data.error);
 
-      setMessage("Registro completado correctamente");
+      // Actualizar usuario en localStorage con datos completos y dataCompleted: true
+      const updatedUser = { 
+        ...user, 
+        phoneNumber: form.phoneNumber,
+        city: form.city,
+        address: form.address,
+        birthDate: form.birthDate,
+        occupation: form.occupation,
+        bio: form.bio,
+        dataCompleted: true 
+      };
+      localStorage.setItem("user", JSON.stringify(updatedUser));
+
+      setMessage("✅ Registro completado correctamente");
       setTimeout(() => {
         navigate("/client/dashboard");
-      }, 2000);
+      }, 1500);
 
     } catch (err) {
       setMessage("❌ Error: " + err.message);
@@ -88,7 +116,11 @@ export default function RegisterClient() {
           <p style={{ opacity: 0.8 }}>ID: {user.userName}</p>
 
           <div className="info-box">
-            <p>Completa tu información para continuar 🚀</p>
+            <p>
+              {isEditMode 
+                ? "Actualiza tu información en cualquier momento 📝"
+                : "Completa tu información para continuar 🚀"}
+            </p>
           </div>
         </div>
 
