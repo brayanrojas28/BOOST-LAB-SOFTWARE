@@ -4,6 +4,9 @@ import "./ClientDashboard.css";
 
 export default function ClientDashboard() {
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [professionals, setProfessionals] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +29,34 @@ export default function ClientDashboard() {
     } else {
       navigate("/login");
     }
+
+    fetchProfessionals();
   }, [navigate]);
+
+  const fetchProfessionals = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/api/professionals");
+      if (res.ok) {
+        const data = await res.json();
+        setProfessionals(data);
+      }
+    } catch (error) {
+      console.error("Error al cargar profesionales:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = () => {
+    if (window.confirm("¿Estás seguro de que quieres cerrar sesión?")) {
+      localStorage.removeItem("user");
+      navigate("/login");
+    }
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   if (!user) {
     return <div className="client-dashboard loading">Cargando tu espacio...</div>;
@@ -34,55 +64,91 @@ export default function ClientDashboard() {
 
   return (
     <div className="client-dashboard">
-      <div className="dashboard-header">
-        <h1>¡Bienvenido, {user.fullName}! 🎉</h1>
-        <p className="dashboard-subtitle">
-          Tu cuenta está lista. Busca los mejores profesionales para ti en BOOST.
-        </p>
-      </div>
+      {/* Botón hamburguesa para móvil */}
+      <button className="menu-toggle" onClick={toggleMenu}>
+        {menuOpen ? "✕" : "☰"}
+      </button>
 
-      <div className="dashboard-grid">
-        <div className="dashboard-card">
-          <div className="card-icon">�</div>
-          <h2>Mi Perfil</h2>
-          <p>Revisa y actualiza tus datos personales.</p>
-          <button className="btn-card" onClick={() => navigate("/client/profile")}>Ver Perfil</button>
+      {/* Menú Lateral */}
+      <aside className={`sidebar-menu ${menuOpen ? "open" : ""}`}>
+        <div className="menu-user-info">
+          <div className="menu-avatar">
+            {user.profileImage ? (
+              <img src={`http://localhost:8080/uploads/${user.profileImage}`} alt="Perfil" />
+            ) : (
+              <span>👤</span>
+            )}
+          </div>
+          <h3>{user.fullName}</h3>
+          <p>{user.email}</p>
         </div>
 
-        <div className="dashboard-card">
-          <div className="card-icon">�🔍</div>
-          <h2>Buscar Profesionales</h2>
-          <p>Encuentra expertos en psicología, finanzas, educación y más.</p>
-          <button className="btn-card">Explorar</button>
+        <nav className="menu-nav">
+          <button className="menu-item" onClick={() => { navigate("/client/profile"); setMenuOpen(false); }}>
+            <span>👤</span> Mi Perfil
+          </button>
+          <button className="menu-item" onClick={() => { navigate("/professionals"); setMenuOpen(false); }}>
+            <span>🔍</span> Buscar Profesionales
+          </button>
+          <button className="menu-item" onClick={() => { navigate("/client/dashboard"); setMenuOpen(false); }}>
+            <span>🏠</span> Inicio
+          </button>
+        </nav>
+
+        <div className="menu-footer">
+          <button className="btn-logout" onClick={handleLogout}>
+            🚪 Cerrar Sesión
+          </button>
+        </div>
+      </aside>
+
+      {/* Overlay para cerrar menú al hacer clic fuera */}
+      {menuOpen && <div className="menu-overlay" onClick={() => setMenuOpen(false)}></div>}
+
+      {/* Contenido Principal */}
+      <main className="main-content">
+        <div className="dashboard-header">
+          <h1>¡Bienvenido, {user.fullName}! 🎉</h1>
+          <p className="dashboard-subtitle">
+            Encuentra los mejores profesionales para ti en BOOST
+          </p>
         </div>
 
-        <div className="dashboard-card">
-          <div className="card-icon">📅</div>
-          <h2>Mis Citas</h2>
-          <p>Visualiza y gestiona tus sesiones agendadas.</p>
-          <button className="btn-card">Ver Citas</button>
-        </div>
+        {/* Sección de profesionales */}
+        <div className="professionals-section">
+          <h2>🔍 Profesionales Disponibles</h2>
+          
+          {loading ? (
+            <div className="loading-professionals">Cargando profesionales...</div>
+          ) : (
+            <div className="professionals-grid">
+              {professionals.map((prof) => (
+                <div key={prof.id} className="professional-card" onClick={() => navigate(`/professional/public/${prof.id}`)}>
+                  <div className="professional-card-header">
+                    {prof.profileImage ? (
+                      <img src={`http://localhost:8080/uploads/${prof.profileImage}`} alt={prof.fullName} />
+                    ) : (
+                      <div className="professional-placeholder">👤</div>
+                    )}
+                  </div>
+                  <div className="professional-card-body">
+                    <h3>{prof.fullName}</h3>
+                    <span className="profession-badge">{prof.profession}</span>
+                    <p className="profession-city">📍 {prof.city}</p>
+                    <p className="profession-experience">📊 {prof.experience} años de experiencia</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
-        <div className="dashboard-card">
-          <div className="card-icon">⭐</div>
-          <h2>Favoritos</h2>
-          <p>Accede rápidamente a tus profesionales preferidos.</p>
-          <button className="btn-card">Ver Favoritos</button>
+          {!loading && professionals.length === 0 && (
+            <div className="no-professionals">
+              <p>No hay profesionales registrados aún.</p>
+            </div>
+          )}
         </div>
-
-        <div className="dashboard-card">
-          <div className="card-icon">💬</div>
-          <h2>Mensajes</h2>
-          <p>Comunícate con tus profesionales.</p>
-          <button className="btn-card">Ver Mensajes</button>
-        </div>
-      </div>
-
-      <div className="dashboard-actions">
-        <button className="btn-home" onClick={() => navigate("/")}>
-          ← Volver al Inicio
-        </button>
-      </div>
+      </main>
     </div>
   );
 }

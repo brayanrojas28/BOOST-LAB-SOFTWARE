@@ -13,6 +13,8 @@ import ProfessionalDashboard from "./pages/professional.module/ProfessionalDashb
 import ClientDashboard from "./pages/client.module/ClientDashboard";
 import ProfessionalProfile from "./pages/professional.module/ProfessionalProfile";
 import ClientProfile from "./pages/client.module/ClientProfile";
+import ProfessionalsGallery from "./pages/professionals.module/ProfessionalsGallery";
+import PublicProfessionalProfile from "./pages/professionals.module/PublicProfessionalProfile";
 import "./index.css";
 
 // 👇 componente intermedio
@@ -27,7 +29,9 @@ function Layout() {
     "/professional/dashboard",
     "/client/dashboard",
     "/professional/profile",
-    "/client/profile"
+    "/client/profile",
+    "/professionals",
+    "/professional/public/:id"
   ];
 
   const hideNavbar = hideNavbarRoutes.includes(location.pathname);
@@ -50,6 +54,8 @@ function Layout() {
         <Route path="/client/dashboard" element={<ClientDashboard />} />
         <Route path="/professional/profile" element={<ProfessionalProfile />} />
         <Route path="/client/profile" element={<ClientProfile />} />
+        <Route path="/professionals" element={<ProfessionalsGallery />} />
+        <Route path="/professional/public/:id" element={<PublicProfessionalProfile />} />
       </Routes>
     </>
   );
