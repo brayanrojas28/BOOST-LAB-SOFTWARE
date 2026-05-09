@@ -4,12 +4,29 @@ import "./Register.css";
 
 export default function Register() {
   const [selectedRole, setSelectedRole] = useState(null);
+  const [currentStep, setCurrentStep] = useState(1); // Paso 1: básico, Paso 2: datos adicionales
+  const [user, setUser] = useState(null);
+  
   const [formData, setFormData] = useState({
     userName: "",
     fullName: "",
     email: "",
     password: "",
     confirmPassword: "",
+  });
+
+  const [additionalData, setAdditionalData] = useState({
+    phoneNumber: "",
+    city: "",
+    address: "",
+    birthDate: "",
+    bio: "",
+    occupation: "",
+    profession: "",
+    experience: "",
+    languages: [],
+    softSkills: [],
+    professionalLicense: ""
   });
 
   const [error, setError] = useState("");
@@ -21,7 +38,25 @@ export default function Register() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleAdditionalChange = (e) => {
+    setAdditionalData({ ...additionalData, [e.target.name]: e.target.value });
+  };
+
+  const handleCheckbox = (e, field) => {
+    const value = e.target.value;
+    setAdditionalData((prev) => {
+      const exists = prev[field].includes(value);
+      return {
+        ...prev,
+        [field]: exists
+          ? prev[field].filter((item) => item !== value)
+          : [...prev[field], value]
+      };
+    });
+  };
+
+  // Paso 1: Registro básico
+  const handleSubmitStep1 = async (e) => {
     e.preventDefault();
 
     if (!formData.userName) {
@@ -67,16 +102,129 @@ export default function Register() {
 
       localStorage.setItem("user", JSON.stringify(data.user));
       localStorage.setItem("token", data.token);
+      setUser(data.user);
 
-      if (selectedRole === "professional") {
-        navigate("/register/professional");
-      } else {
-        navigate("/register/client");
-      }
+      // Pasar al paso 2
+      setCurrentStep(2);
+      setError("");
     } catch (err) {
       setError("Error: " + err.message);
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Paso 2: Datos adicionales
+  const handleSubmitStep2 = async (e) => {
+    e.preventDefault();
+
+    if (selectedRole === "professional") {
+      if (!additionalData.phoneNumber || !additionalData.city || !additionalData.birthDate || !additionalData.profession || !additionalData.professionalLicense) {
+        setError("❌ Faltan campos obligatorios");
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const res = await fetch("http://localhost:8080/api/register/professional", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            idUser: user.id,
+            phoneNumber: additionalData.phoneNumber,
+            city: additionalData.city,
+            address: additionalData.address,
+            birthDate: additionalData.birthDate,
+            bio: additionalData.bio,
+            profession: additionalData.profession,
+            experience: additionalData.experience,
+            languages: additionalData.languages,
+            softSkills: additionalData.softSkills,
+            professionalLicense: additionalData.professionalLicense
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error);
+
+        // Actualizar usuario en localStorage
+        const updatedUser = { 
+          ...user, 
+          phoneNumber: additionalData.phoneNumber,
+          city: additionalData.city,
+          address: additionalData.address,
+          birthDate: additionalData.birthDate,
+          bio: additionalData.bio,
+          profession: additionalData.profession,
+          experience: additionalData.experience,
+          languages: additionalData.languages,
+          softSkills: additionalData.softSkills,
+          professionalLicense: additionalData.professionalLicense,
+          dataCompleted: true 
+        };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+
+        setError("");
+        // Redirigir a dashboard
+        setTimeout(() => {
+          navigate("/professional/dashboard");
+        }, 500);
+      } catch (err) {
+        setError("❌ Error: " + err.message);
+      } finally {
+        setLoading(false);
+      }
+    } else {
+      // Cliente
+      if (!additionalData.phoneNumber || !additionalData.city || !additionalData.birthDate) {
+        setError("Faltan campos obligatorios");
+        return;
+      }
+
+      setLoading(true);
+      try {
+        const res = await fetch("http://localhost:8080/api/register/client", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            idUser: user.id,
+            phoneNumber: additionalData.phoneNumber,
+            city: additionalData.city,
+            address: additionalData.address,
+            birthDate: additionalData.birthDate,
+            occupation: additionalData.occupation,
+            bio: additionalData.bio
+          })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) throw new Error(data.error);
+
+        // Actualizar usuario en localStorage
+        const updatedUser = { 
+          ...user, 
+          phoneNumber: additionalData.phoneNumber,
+          city: additionalData.city,
+          address: additionalData.address,
+          birthDate: additionalData.birthDate,
+          occupation: additionalData.occupation,
+          bio: additionalData.bio,
+          dataCompleted: true 
+        };
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+
+        setError("");
+        // Redirigir a dashboard
+        setTimeout(() => {
+          navigate("/client/dashboard");
+        }, 500);
+      } catch (err) {
+        setError("❌ Error: " + err.message);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -138,38 +286,40 @@ export default function Register() {
     );
   }
 
-  return (
-    <div className="register-container">
-      <div className="register-background">
-        <div className="register-background-image"></div>
-        <div className="register-background-overlay"></div>
-      </div>
+  // Paso 1: Registro básico
+  if (currentStep === 1) {
+    return (
+      <div className="register-container">
+        <div className="register-background">
+          <div className="register-background-image"></div>
+          <div className="register-background-overlay"></div>
+        </div>
 
-      <button 
-        className="btn-back"
-        onClick={() => setSelectedRole(null)}
-      >
-        ← Atrás
-      </button>
+        <button 
+          className="btn-back"
+          onClick={() => setSelectedRole(null)}
+        >
+          ← Atrás
+        </button>
 
-      <div className="register-wrapper">
-        <div className="register-card">
-          <div className="register-header">
-            <div className="register-icon">
-              {selectedRole === "professional" ? "💼" : "👤"}
+        <div className="register-wrapper">
+          <div className="register-card">
+            <div className="register-header">
+              <div className="register-icon">
+                {selectedRole === "professional" ? "💼" : "👤"}
+              </div>
+              <h1>{selectedRole === "professional" ? "Registro Profesional" : "Registro Cliente"}</h1>
+              <p>Paso 1 de 2 - Información Básica</p>
             </div>
-            <h1>{selectedRole === "professional" ? "Registro Profesional" : "Registro Cliente"}</h1>
-            <p>Completa tu información para continuar</p>
-          </div>
 
-          {error && (
-            <div className="error-alert">
-              <span className="error-icon">⚠️</span>
-              <p>{error}</p>
-            </div>
-          )}
+            {error && (
+              <div className="error-alert">
+                <span className="error-icon">⚠️</span>
+                <p>{error}</p>
+              </div>
+            )}
 
-          <form onSubmit={handleSubmit} className="register-form">
+            <form onSubmit={handleSubmitStep1} className="register-form">
             <div className="form-group">
               <label htmlFor="userName">Número de Documento</label>
               <div className="input-wrapper">
@@ -271,10 +421,10 @@ export default function Register() {
               {loading ? (
                 <>
                   <span className="spinner"></span>
-                  Registrando...
+                  Continuando...
                 </>
               ) : (
-                "Registrarse"
+                "Continuar"
               )}
             </button>
           </form>
@@ -286,5 +436,266 @@ export default function Register() {
         </div>
       </div>
     </div>
-  );
+    );
+  }
+
+  // Paso 2: Datos adicionales
+  if (currentStep === 2) {
+    if (selectedRole === "professional") {
+      return (
+        <div className="page">
+          <div className="container">
+            {/* SIDEBAR */}
+            <div className="sidebar">
+              <h2>💼 Datos Profesionales</h2>
+              <p>{user.fullName || "Usuario"}</p>
+              <p style={{ fontSize: "0.85rem", color: "#999" }}>{user.email}</p>
+
+              <div className="info-box">
+                <p>Paso 2 de 2 - Completa tu información profesional para ofrecer servicios en BOOST 🚀</p>
+              </div>
+            </div>
+
+            {/* FORMULARIO */}
+            <div className="card">
+              <h2>Información Profesional</h2>
+
+              {error && (
+                <div className="error-alert">
+                  <span className="error-icon">⚠️</span>
+                  <p>{error}</p>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmitStep2}>
+                {/* Información de Contacto */}
+                <fieldset style={{ border: "none", padding: "0", marginBottom: "1.5rem" }}>
+                  <legend style={{ color: "#030347", fontWeight: "600", marginBottom: "1rem", fontSize: "0.95rem", textTransform: "uppercase" }}>Datos de Contacto</legend>
+
+                  <input 
+                    type="tel" 
+                    name="phoneNumber" 
+                    placeholder="Teléfono *" 
+                    onChange={handleAdditionalChange}
+                    value={additionalData.phoneNumber}
+                    required 
+                    style={{ marginBottom: "1rem" }}
+                  />
+
+                  <select name="city" onChange={handleAdditionalChange} required value={additionalData.city} style={{ marginBottom: "1rem" }}>
+                    <option value="">Selecciona Ciudad *</option>
+                    <option value="Medellín">Medellín</option>
+                    <option value="Bogotá">Bogotá</option>
+                    <option value="Cali">Cali</option>
+                  </select>
+
+                  <input 
+                    type="text" 
+                    name="address" 
+                    placeholder="Dirección (opcional)" 
+                    onChange={handleAdditionalChange}
+                    value={additionalData.address}
+                    style={{ marginBottom: "1rem" }}
+                  />
+
+                  <div style={{ marginBottom: "1rem" }}>
+                    <label style={{ display: "block", fontSize: "0.85rem", color: "#999", marginBottom: "0.5rem" }}>Fecha de Nacimiento *</label>
+                    <input 
+                      type="date" 
+                      name="birthDate" 
+                      onChange={handleAdditionalChange}
+                      value={additionalData.birthDate}
+                      required 
+                    />
+                  </div>
+                </fieldset>
+
+                {/* Experiencia Profesional */}
+                <fieldset style={{ border: "none", padding: "0", marginBottom: "1.5rem", borderTop: "1px solid #d0d0d0", paddingTop: "1.5rem" }}>
+                  <legend style={{ color: "#030347", fontWeight: "600", marginBottom: "1rem", fontSize: "0.95rem", textTransform: "uppercase" }}>Experiencia Profesional</legend>
+
+                  <select 
+                    name="profession" 
+                    onChange={handleAdditionalChange}
+                    value={additionalData.profession}
+                    required
+                    style={{ marginBottom: "1rem" }}
+                  >
+                    <option value="">Selecciona tu Profesión *</option>
+                    <option value="psicología">Psicólogo/a</option>
+                    <option value="finanzas">Asesor/a Financiero</option>
+                    <option value="educativo">Tutor/a Educativo</option>
+                    <option value="laboral">Asesor/a Laboral</option>
+                    <option value="coach">Coach de Vida</option>
+                    <option value="otro">Otra Profesión</option>
+                  </select>
+
+                  <input 
+                    type="number" 
+                    name="experience" 
+                    placeholder="Años de experiencia *" 
+                    onChange={handleAdditionalChange}
+                    value={additionalData.experience}
+                    required
+                    min="0"
+                    style={{ marginBottom: "1rem" }}
+                  />
+
+                  <input 
+                    type="text" 
+                    name="professionalLicense" 
+                    placeholder="Tarjeta Profesional / Licencia *" 
+                    onChange={handleAdditionalChange}
+                    value={additionalData.professionalLicense}
+                    required
+                    style={{ marginBottom: "1rem" }}
+                  />
+
+                  <textarea 
+                    name="bio" 
+                    placeholder="Perfil profesional * (Cuéntanos sobre ti, tu experiencia y especialidades)" 
+                    onChange={handleAdditionalChange}
+                    value={additionalData.bio}
+                    required
+                    style={{ marginBottom: "1rem", minHeight: "120px", fontFamily: "inherit" }}
+                  />
+                </fieldset>
+
+                {/* Idiomas */}
+                <fieldset style={{ border: "none", padding: "0", marginBottom: "1.5rem", borderTop: "1px solid #d0d0d0", paddingTop: "1.5rem" }}>
+                  <legend style={{ color: "#030347", fontWeight: "600", marginBottom: "1rem", fontSize: "0.95rem", textTransform: "uppercase" }}>Idiomas (Opcional)</legend>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
+                    {["Español", "Inglés", "Portugués", "Francés"].map((lang) => (
+                      <label key={lang} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer" }}>
+                        <input 
+                          type="checkbox" 
+                          value={lang}
+                          checked={additionalData.languages.includes(lang)}
+                          onChange={(e) => handleCheckbox(e, "languages")}
+                        />
+                        <span>{lang}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+
+                {/* Habilidades */}
+                <fieldset style={{ border: "none", padding: "0", marginBottom: "1.5rem", borderTop: "1px solid #d0d0d0", paddingTop: "1.5rem" }}>
+                  <legend style={{ color: "#030347", fontWeight: "600", marginBottom: "1rem", fontSize: "0.95rem", textTransform: "uppercase" }}>Habilidades y Competencias (Opcional)</legend>
+
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
+                    {["Comunicación", "Empatía", "Paciencia", "Liderazgo", "Flexibilidad", "Creatividad"].map((skill) => (
+                      <label key={skill} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer" }}>
+                        <input 
+                          type="checkbox" 
+                          value={skill}
+                          checked={additionalData.softSkills.includes(skill)}
+                          onChange={(e) => handleCheckbox(e, "softSkills")}
+                        />
+                        <span>{skill}</span>
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
+
+                <button 
+                  type="submit"
+                  style={{ marginTop: "2rem", width: "100%", padding: "0.75rem", backgroundColor: "#030347", color: "#fff", border: "none", borderRadius: "0.5rem", cursor: "pointer", fontWeight: "600", fontSize: "1rem" }}
+                  disabled={loading}
+                >
+                  {loading ? "Completando registro..." : "✅ Completar Registro"}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      // Cliente
+      return (
+        <div className="page">
+          <div className="container">
+            {/* SIDEBAR */}
+            <div className="sidebar">
+              <h2>👤 Perfil</h2>
+              <p><strong>{user.fullName || "Usuario"}</strong></p>
+              <p>{user.email}</p>
+              <p style={{ opacity: 0.8 }}>ID: {user.userName}</p>
+
+              <div className="info-box">
+                <p>Paso 2 de 2 - Completa tu información para continuar 🚀</p>
+              </div>
+            </div>
+
+            {/* FORMULARIO */}
+            <div className="card">
+              <h2>Datos del cliente</h2>
+
+              {error && (
+                <div className="error-alert">
+                  <span className="error-icon">⚠️</span>
+                  <p>{error}</p>
+                </div>
+              )}
+
+              <form onSubmit={handleSubmitStep2}>
+                <input 
+                  name="phoneNumber" 
+                  placeholder="Teléfono *" 
+                  onChange={handleAdditionalChange} 
+                  value={additionalData.phoneNumber}
+                  required 
+                />
+
+                <select name="city" onChange={handleAdditionalChange} required value={additionalData.city}>
+                  <option value="">Ciudad *</option>
+                  <option value="Medellín">Medellín</option>
+                  <option value="Bogotá">Bogotá</option>
+                  <option value="Cali">Cali</option>
+                </select>
+
+                <input 
+                  type="date" 
+                  name="birthDate" 
+                  onChange={handleAdditionalChange} 
+                  value={additionalData.birthDate}
+                  required 
+                />
+
+                <input 
+                  name="address" 
+                  placeholder="Dirección (opcional)" 
+                  onChange={handleAdditionalChange}
+                  value={additionalData.address}
+                />
+
+                <input 
+                  name="occupation" 
+                  placeholder="Ocupación (opcional)" 
+                  onChange={handleAdditionalChange}
+                  value={additionalData.occupation}
+                />
+
+                <textarea 
+                  name="bio" 
+                  placeholder="Cuéntanos sobre ti (opcional)" 
+                  onChange={handleAdditionalChange}
+                  value={additionalData.bio}
+                />
+
+                <button 
+                  type="submit"
+                  style={{ width: "100%", padding: "0.75rem", backgroundColor: "#030347", color: "#fff", border: "none", borderRadius: "0.5rem", cursor: "pointer", fontWeight: "600", marginTop: "1rem" }}
+                  disabled={loading}
+                >
+                  {loading ? "Completando registro..." : "Completar Registro"}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      );
+    }
+  }
 }

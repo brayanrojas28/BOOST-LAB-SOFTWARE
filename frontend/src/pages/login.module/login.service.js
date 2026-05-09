@@ -44,10 +44,11 @@ export const useLogin = () => {
       }
       localStorage.setItem("user", JSON.stringify(data.user));
 
+      // Ir directamente al dashboard según el rol
       if (data.user.role === "client") {
-        navigate("/register/client");
+        navigate("/client/dashboard");
       } else if (data.user.role === "professional") {
-        navigate("/register/professional");
+        navigate("/professional/dashboard");
       } else {
         navigate("/home");
       }

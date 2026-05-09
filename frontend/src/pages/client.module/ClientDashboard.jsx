@@ -43,7 +43,14 @@ export default function ClientDashboard() {
 
       <div className="dashboard-grid">
         <div className="dashboard-card">
-          <div className="card-icon">🔍</div>
+          <div className="card-icon">�</div>
+          <h2>Mi Perfil</h2>
+          <p>Revisa y actualiza tus datos personales.</p>
+          <button className="btn-card" onClick={() => navigate("/register/client?edit=true")}>Editar Perfil</button>
+        </div>
+
+        <div className="dashboard-card">
+          <div className="card-icon">�🔍</div>
           <h2>Buscar Profesionales</h2>
           <p>Encuentra expertos en psicología, finanzas, educación y más.</p>
           <button className="btn-card">Explorar</button>

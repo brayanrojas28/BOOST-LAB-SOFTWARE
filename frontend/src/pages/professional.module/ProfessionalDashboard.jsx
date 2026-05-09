@@ -46,7 +46,7 @@ export default function ProfessionalDashboard() {
           <div className="card-icon">👤</div>
           <h2>Mi Perfil</h2>
           <p>Revisa y actualiza tus datos profesionales.</p>
-          <button className="btn-card">Ir a Perfil</button>
+          <button className="btn-card" onClick={() => navigate("/register/professional?edit=true")}>Editar Perfil</button>
         </div>
 
         <div className="dashboard-card">
