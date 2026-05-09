@@ -40,14 +40,19 @@ export default function RegisterProfessional() {
 
     if (storedUser) {
       setUser(storedUser);
-      // Si hay datos en el usuario, prellenar el formulario
+      // Si hay datos en el usuario, prellenar el formulario con todos los datos guardados
       setForm(prev => ({
         ...prev,
         phoneNumber: storedUser.phoneNumber || "",
         city: storedUser.city || "",
         address: storedUser.address || "",
         birthDate: storedUser.birthDate || "",
-        bio: storedUser.bio || ""
+        bio: storedUser.bio || "",
+        profession: storedUser.profession || "",
+        experience: storedUser.experience || "",
+        languages: storedUser.languages || [],
+        softSkills: storedUser.softSkills || [],
+        professionalLicense: storedUser.professionalLicense || ""
       }));
     } else {
       navigate("/login");

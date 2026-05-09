@@ -46,7 +46,7 @@ export default function ClientDashboard() {
           <div className="card-icon">�</div>
           <h2>Mi Perfil</h2>
           <p>Revisa y actualiza tus datos personales.</p>
-          <button className="btn-card" onClick={() => navigate("/register/client?edit=true")}>Editar Perfil</button>
+          <button className="btn-card" onClick={() => navigate("/client/profile")}>Ver Perfil</button>
         </div>
 
         <div className="dashboard-card">
