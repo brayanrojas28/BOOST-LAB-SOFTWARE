@@ -25,18 +25,49 @@ exports.createOrUpdateProfessional = async (data) => {
   const existing = await professionalRepository.findByUserId(data.idUser);
 
   await userRepository.updateUser(data.idUser, {
-  phoneNumber: data.phoneNumber,
-  city: data.city,
-  address: data.address,
-  birthDate: data.birthDate,
-  bio: data.bio
-});
+    phoneNumber: data.phoneNumber,
+    city: data.city,
+    address: data.address,
+    birthDate: data.birthDate,
+    bio: data.bio,
+    profileImage: data.profileImage || null
+  });
 
   if (existing) {
     // Ya existe → UPDATE
     return await professionalRepository.updateProfessional(data);
   } else {
     // No existe → INSERT
-    return await professionalRepository.insertProfessional(data);
+    return await professionalRepository.saveProfessional(data);
   }
+};
+
+// Obtener todos los profesionales
+exports.getAllProfessionals = async () => {
+    try {
+        const professionals = await professionalRepository.getAllProfessionals();
+        return professionals;
+    } catch (error) {
+        throw new Error('Error al obtener profesionales: ' + error.message);
+    }
+};
+
+// Obtener un profesional por ID
+exports.getProfessionalById = async (id) => {
+    try {
+        const professional = await professionalRepository.getProfessionalById(id);
+        return professional;
+    } catch (error) {
+        throw new Error('Error al obtener profesional: ' + error.message);
+    }
+};
+
+// Obtener un profesional por idUser (ID del usuario)
+exports.getProfessionalByUserId = async (idUser) => {
+    try {
+        const professional = await professionalRepository.getProfessionalByUserId(idUser);
+        return professional;
+    } catch (error) {
+        throw new Error('Error al obtener profesional: ' + error.message);
+    }
 };

@@ -19,13 +19,18 @@ export default function RegisterProfessional() {
     experience: "",
     languages: [],
     softSkills: [],
-    professionalLicense: ""
+    professionalLicense: "",
+    profileImage: ""
   });
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     const rawUser = localStorage.getItem("user");
+    console.log("Raw user from localStorage:", rawUser);
     let storedUser = null;
     try {
       const validRawUser = rawUser && rawUser !== "undefined" ? rawUser : null;
@@ -33,6 +38,7 @@ export default function RegisterProfessional() {
         localStorage.removeItem("user");
       }
       storedUser = validRawUser ? JSON.parse(validRawUser) : null;
+      console.log("Parsed user:", storedUser);
     } catch (parseError) {
       console.error("Invalid user in localStorage:", rawUser, parseError);
       localStorage.removeItem("user");
@@ -52,7 +58,8 @@ export default function RegisterProfessional() {
         experience: storedUser.experience || "",
         languages: storedUser.languages || [],
         softSkills: storedUser.softSkills || [],
-        professionalLicense: storedUser.professionalLicense || ""
+        professionalLicense: storedUser.professionalLicense || "",
+        profileImage: storedUser.profileImage || ""
       }));
     } else {
       navigate("/login");
@@ -76,6 +83,26 @@ export default function RegisterProfessional() {
     });
   };
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        setMessage("❌ La imagen no debe superar 5MB");
+        return;
+      }
+      
+      setSelectedImage(file);
+      setImagePreview(URL.createObjectURL(file));
+      setForm({ ...form, profileImage: file.name });
+    }
+  };
+
+  const removeImage = () => {
+    setSelectedImage(null);
+    setImagePreview(null);
+    setForm({ ...form, profileImage: "" });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -94,27 +121,41 @@ export default function RegisterProfessional() {
     }
 
     try {
+      // Verificar que el usuario existe
+      console.log("Usuario en handleSubmit:", user);
+      console.log("user.id:", user.id);
+      
+      if (!user || !user.id) {
+        setMessage("❌ Error: Usuario no encontrado. Por favor inicia sesión nuevamente.");
+        setLoading(false);
+        return;
+      }
+
+      // Crear FormData para manejar la subida de imagen
+      const formData = new FormData();
+      formData.append('idUser', user.id);
+      formData.append('phoneNumber', form.phoneNumber);
+      formData.append('city', form.city);
+      formData.append('address', form.address);
+      formData.append('birthDate', form.birthDate);
+      formData.append('bio', form.bio);
+      formData.append('profession', form.profession);
+      formData.append('experience', form.experience);
+      formData.append('languages', JSON.stringify(form.languages));
+      formData.append('softSkills', JSON.stringify(form.softSkills));
+      formData.append('professionalLicense', form.professionalLicense);
+      
+      if (selectedImage) {
+        formData.append('profileImage', selectedImage);
+      }
+
       const res = await fetch("http://localhost:8080/api/register/professional", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          idUser: user.id,
-          phoneNumber: form.phoneNumber,
-          city: form.city,
-          address: form.address,
-          birthDate: form.birthDate,
-          bio: form.bio,
-          profession: form.profession,
-          experience: form.experience,
-          languages: form.languages,
-          softSkills: form.softSkills,
-          professionalLicense: form.professionalLicense
-        })
+        body: formData
       });
 
       const data = await res.json();
+      console.log("Respuesta del backend:", data);
 
       if (!res.ok) throw new Error(data.error);
 
@@ -131,9 +172,11 @@ export default function RegisterProfessional() {
         languages: form.languages,
         softSkills: form.softSkills,
         professionalLicense: form.professionalLicense,
+        profileImage: data.professional?.profileImage || (user ? user.profileImage || "" : ""),
         dataCompleted: true 
       };
       localStorage.setItem("user", JSON.stringify(updatedUser));
+      console.log("Usuario actualizado en localStorage:", updatedUser);
 
       setMessage("✅ Perfil profesional registrado correctamente");
       setTimeout(() => {
@@ -155,8 +198,8 @@ export default function RegisterProfessional() {
         {/* SIDEBAR */}
         <div className="sidebar">
           <h2>💼 Datos Profesionales</h2>
-          <p>{user.fullName || "Usuario"}</p>
-          <p style={{ fontSize: "0.85rem", color: "#999" }}>{user.email}</p>
+          <p>{user ? user.fullName || "Usuario" : "Usuario"}</p>
+          <p style={{ fontSize: "0.85rem", color: "#999" }}>{user ? user.email : ""}</p>
 
           <div className="info-box">
             <p>
@@ -177,6 +220,88 @@ export default function RegisterProfessional() {
           <h2>Información Profesional</h2>
 
           <form onSubmit={handleSubmit}>
+            {/* Imagen de Perfil */}
+            <fieldset style={{ border: "none", padding: "0", marginBottom: "1.5rem" }}>
+              <legend style={{ color: "#030347", fontWeight: "600", marginBottom: "1rem", fontSize: "0.95rem", textTransform: "uppercase" }}>
+                Foto de Perfil
+              </legend>
+              
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem" }}>
+                {imagePreview || (user && user.profileImage) ? (
+                  <div style={{ position: "relative", width: "150px", height: "150px" }}>
+                    <img 
+                      src={imagePreview || (user ? `http://localhost:8080/uploads/${user.profileImage}` : "")} 
+                      alt="Perfil" 
+                      style={{ 
+                        width: "150px", 
+                        height: "150px", 
+                        borderRadius: "50%", 
+                        objectFit: "cover", 
+                        border: "4px solid #030347" 
+                      }} 
+                    />
+                    <button
+                      type="button"
+                      onClick={removeImage}
+                      style={{
+                        position: "absolute",
+                        top: "-5px",
+                        right: "-5px",
+                        background: "#dc2626",
+                        color: "white",
+                        border: "none",
+                        borderRadius: "50%",
+                        width: "30px",
+                        height: "30px",
+                        cursor: "pointer",
+                        fontSize: "16px"
+                      }}
+                    >
+                      ×
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{
+                    width: "150px",
+                    height: "150px",
+                    borderRadius: "50%",
+                    border: "2px dashed #030347",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#f8fafc"
+                  }}>
+                    <span style={{ fontSize: "48px", color: "#030347" }}>👤</span>
+                  </div>
+                )}
+                
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  disabled={loading}
+                  style={{ display: "none" }}
+                  id="profileImage"
+                />
+                
+                <button
+                  type="button"
+                  onClick={() => document.getElementById('profileImage').click()}
+                  disabled={loading}
+                  style={{
+                    padding: "0.5rem 1rem",
+                    background: "#030347",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "8px",
+                    cursor: "pointer",
+                    fontSize: "0.9rem"
+                  }}
+                >
+                  {imagePreview || (user && user.profileImage) ? "Cambiar Foto" : "Subir Foto"}
+                </button>
+              </div>
+            </fieldset>
             {/* Información de Contacto */}
             <fieldset style={{ border: "none", padding: "0" }}>
               <legend style={{ color: "#030347", fontWeight: "600", marginBottom: "1rem", fontSize: "0.95rem", textTransform: "uppercase" }}>

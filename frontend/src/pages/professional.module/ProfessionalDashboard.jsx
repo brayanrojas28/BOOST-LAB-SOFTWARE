@@ -4,6 +4,9 @@ import "./ProfessionalDashboard.css";
 
 export default function ProfessionalDashboard() {
   const [user, setUser] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [professionals, setProfessionals] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -26,7 +29,35 @@ export default function ProfessionalDashboard() {
     } else {
       navigate("/login");
     }
+
+    // Cargar profesionales
+    fetchProfessionals();
   }, [navigate]);
+
+  const fetchProfessionals = async () => {
+    try {
+      const res = await fetch("http://localhost:8080/api/professionals");
+      if (res.ok) {
+        const data = await res.json();
+        setProfessionals(data);
+      }
+    } catch (error) {
+      console.error("Error al cargar profesionales:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLogout = () => {
+    if (window.confirm("¿Estás seguro de que quieres cerrar sesión?")) {
+      localStorage.removeItem("user");
+      navigate("/login");
+    }
+  };
+
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
 
   if (!user) {
     return <div className="professional-dashboard loading">Cargando tu espacio profesional...</div>;
@@ -34,49 +65,94 @@ export default function ProfessionalDashboard() {
 
   return (
     <div className="professional-dashboard">
-      <div className="dashboard-header">
-        <h1>Bienvenido, {user.fullName} 🎉</h1>
-        <p className="dashboard-subtitle">
-          Tu perfil profesional está activo. Aquí puedes gestionar tu negocio en BOOST.
-        </p>
-      </div>
+      {/* Botón hamburguesa para móvil */}
+      <button className="menu-toggle" onClick={toggleMenu}>
+        {menuOpen ? "✕" : "☰"}
+      </button>
 
-      
-      <div className="dashboard-grid">
-        <div className="dashboard-card">
-          <div className="card-icon">👤</div>
-          <h2>Mi Perfil</h2>
-          <p>Revisa y actualiza tus datos profesionales.</p>
-          <button className="btn-card" onClick={() => navigate("/professional/profile")}>Ver Perfil</button>
+      {/* Menú Lateral */}
+      <aside className={`sidebar-menu ${menuOpen ? "open" : ""}`}>
+        <div className="menu-user-info">
+          <div className="menu-avatar">
+            {user.profileImage ? (
+              <img src={`http://localhost:8080/uploads/${user.profileImage}`} alt="Perfil" />
+            ) : (
+              <span>👤</span>
+            )}
+          </div>
+          <h3>{user.fullName}</h3>
+          <p>{user.email}</p>
         </div>
 
-        <div className="dashboard-card">
-          <div className="card-icon">💼</div>
-          <h2>Mis Servicios</h2>
-          <p>Configura los servicios que ofreces.</p>
-          <button className="btn-card">Gestionar Servicios</button>
+        <nav className="menu-nav">
+          <button className="menu-item" onClick={() => { navigate("/professional/profile"); setMenuOpen(false); }}>
+            <span>👤</span> Mi Perfil
+          </button>
+          <button className="menu-item" onClick={() => { navigate("/register/professional?edit=true"); setMenuOpen(false); }}>
+            <span>✏️</span> Editar Perfil
+          </button>
+          <button className="menu-item" onClick={() => { navigate("/professional/dashboard"); setMenuOpen(false); }}>
+            <span>🏠</span> Inicio
+          </button>
+          <button className="menu-item" onClick={() => { navigate("/professionals"); setMenuOpen(false); }}>
+            <span>🔍</span> Explorar Profesionales
+          </button>
+        </nav>
+
+        <div className="menu-footer">
+          <button className="btn-logout" onClick={handleLogout}>
+            🚪 Cerrar Sesión
+          </button>
+        </div>
+      </aside>
+
+      {/* Overlay para cerrar menú al hacer clic fuera */}
+      {menuOpen && <div className="menu-overlay" onClick={() => setMenuOpen(false)}></div>}
+
+      {/* Contenido Principal */}
+      <main className="main-content">
+        <div className="dashboard-header">
+          <h1>Bienvenido, {user.fullName} 🎉</h1>
+          <p className="dashboard-subtitle">
+            Descubre otros profesionales en BOOST
+          </p>
         </div>
 
-        <div className="dashboard-card">
-          <div className="card-icon">📅</div>
-          <h2>Agenda</h2>
-          <p>Administra tus citas y disponibilidad.</p>
-          <button className="btn-card">Ver Agenda</button>
-        </div>
+        {/* Sección de profesionales */}
+        <div className="professionals-section">
+          <h2>🔍 Profesionales Disponibles</h2>
+          
+          {loading ? (
+            <div className="loading-professionals">Cargando profesionales...</div>
+          ) : (
+            <div className="professionals-grid">
+              {professionals.map((prof) => (
+                <div key={prof.id} className="professional-card" onClick={() => navigate(`/professional/public/${prof.id}`)}>
+                  <div className="professional-card-header">
+                    {prof.profileImage ? (
+                      <img src={`http://localhost:8080/uploads/${prof.profileImage}`} alt={prof.fullName} />
+                    ) : (
+                      <div className="professional-placeholder">👤</div>
+                    )}
+                  </div>
+                  <div className="professional-card-body">
+                    <h3>{prof.fullName}</h3>
+                    <span className="profession-badge">{prof.profession}</span>
+                    <p className="profession-city">📍 {prof.city}</p>
+                    <p className="profession-experience">📊 {prof.experience} años de experiencia</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
-        <div className="dashboard-card">
-          <div className="card-icon">💰</div>
-          <h2>Ganancias</h2>
-          <p>Consulta tu historial de ingresos.</p>
-          <button className="btn-card">Ver Ganancias</button>
+          {!loading && professionals.length === 0 && (
+            <div className="no-professionals">
+              <p>No hay profesionales registrados aún.</p>
+            </div>
+          )}
         </div>
-      </div>
-
-      <div className="dashboard-actions">
-        <button className="btn-home" onClick={() => navigate("/")}>
-          ← Volver al Inicio
-        </button>
-      </div>
+      </main>
     </div>
   );
 }

@@ -1,18 +1,19 @@
 .professional-profile {
   min-height: calc(100vh - 70px);
   background: linear-gradient(135deg, #f5f8ff 0%, #f0f6ff 100%);
-  padding: 2rem;
+  padding: 1rem 2rem;
 }
 
 .profile-header {
-  max-width: 1200px;
+  width: 100%;
+  padding: 0 1rem;
   margin: 0 auto 2rem;
   text-align: center;
 }
 
 .profile-header h1 {
   margin: 1rem 0 0.5rem;
-  color: #0f2147;
+  color: #030347;
   font-size: 2.5rem;
 }
 
@@ -44,15 +45,75 @@
 }
 
 .profile-content {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 .profile-card {
   background: white;
   border-radius: 16px;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.profile-header-section {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  border-radius: 16px;
+  border: 1px solid #e2e8f0;
+}
+
+.profile-image-container {
+  flex-shrink: 0;
+}
+
+.profile-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #030347;
+  box-shadow: 0 8px 24px rgba(15, 33, 71, 0.15);
+}
+
+.profile-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid #030347;
+  box-shadow: 0 8px 24px rgba(15, 33, 71, 0.15);
+}
+
+.profile-icon {
+  font-size: 48px;
+  color: #030347;
+}
+
+.profile-name-section {
+  flex: 1;
+  text-align: left;
+}
+
+.profile-name-section h1 {
+  margin: 0 0 0.5rem;
+  color: #030347;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.profile-profession {
+  margin: 0;
+  color: #536182;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .profile-section {
@@ -65,7 +126,7 @@
 
 .profile-section h2 {
   margin: 0 0 1.5rem;
-  color: #0f2147;
+  color: #030347;
   font-size: 1.5rem;
   border-bottom: 2px solid #e8eef5;
   padding-bottom: 0.5rem;
@@ -73,8 +134,8 @@
 
 .profile-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
 .profile-item {
@@ -84,7 +145,7 @@
   padding: 1rem;
   background: #f8fafc;
   border-radius: 8px;
-  border-left: 4px solid #0f2147;
+  border-left: 4px solid #030347;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
@@ -99,7 +160,7 @@
 
 .profile-label {
   font-weight: 600;
-  color: #0f2147;
+  color: #030347;
   min-width: 140px;
   flex-shrink: 0;
 }
@@ -120,7 +181,7 @@
 
 .skills-group h3 {
   margin: 0 0 1rem;
-  color: #0f2147;
+  color: #030347;
   font-size: 1.2rem;
 }
 
@@ -133,7 +194,7 @@
 .skill-tag {
   display: inline-block;
   padding: 0.5rem 1rem;
-  background: linear-gradient(135deg, #0f2147, #1e3a8a);
+  background: linear-gradient(135deg, #030347, #1e3a8a);
   color: white;
   border-radius: 20px;
   font-size: 0.9rem;

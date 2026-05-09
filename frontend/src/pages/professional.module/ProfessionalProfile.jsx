@@ -8,6 +8,36 @@ export default function ProfessionalProfile() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchProfessionalData = async (currentUser) => {
+      try {
+        const res = await fetch(`http://localhost:8080/api/professionals/user/${currentUser.id}`);
+        if (res.ok) {
+          const professionalData = await res.json();
+          console.log("Datos del backend:", professionalData);
+          
+          // Mezclar datos del backend con los del localStorage
+          const mergedUser = { 
+            ...currentUser, 
+            ...professionalData,
+            // Asegurarse de que los arrays sean arrays válidos
+            languages: Array.isArray(professionalData.languages) 
+              ? professionalData.languages 
+              : (professionalData.languages ? JSON.parse(professionalData.languages) : []),
+            softSkills: Array.isArray(professionalData.softSkills) 
+              ? professionalData.softSkills 
+              : (professionalData.softSkills ? JSON.parse(professionalData.softSkills) : []),
+            dataCompleted: true 
+          };
+          
+          setUser(mergedUser);
+          // Actualizar localStorage con los datos más recientes
+          localStorage.setItem("user", JSON.stringify(mergedUser));
+        }
+      } catch (error) {
+        console.error("Error al obtener datos del profesional:", error);
+      }
+    };
+
     const rawUser = localStorage.getItem("user");
     let storedUser = null;
 
@@ -24,6 +54,8 @@ export default function ProfessionalProfile() {
 
     if (storedUser) {
       setUser(storedUser);
+      // Obtener datos frescos del backend
+      fetchProfessionalData(storedUser);
     } else {
       navigate("/login");
     }
@@ -50,6 +82,26 @@ export default function ProfessionalProfile() {
 
       <div className="profile-content">
         <div className="profile-card">
+          <div className="profile-header-section">
+            <div className="profile-image-container">
+              {user.profileImage ? (
+                <img 
+                  src={`http://localhost:8080/uploads/${user.profileImage}`} 
+                  alt="Perfil" 
+                  className="profile-image"
+                />
+              ) : (
+                <div className="profile-placeholder">
+                  <span className="profile-icon">👤</span>
+                </div>
+              )}
+            </div>
+            <div className="profile-name-section">
+              <h1>{user.fullName}</h1>
+              <p className="profile-profession">{user.profession || "Profesional"}</p>
+            </div>
+          </div>
+
           <div className="profile-section">
             <h2>📋 Información Personal</h2>
             <div className="profile-grid">
