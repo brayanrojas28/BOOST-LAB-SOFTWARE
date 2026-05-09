@@ -45,7 +45,7 @@ const saveUser = async (data) => {
 const updateUser = async (idUser, data) => {
   const query = `
     UPDATE users
-    SET phoneNumber = ?, city = ?, address = ?, birthDate = ?, bio = ?
+    SET phoneNumber = ?, city = ?, address = ?, birthDate = ?, bio = ?, profileImage = ?
     WHERE idUser = ?
   `;
 
@@ -55,6 +55,7 @@ const updateUser = async (idUser, data) => {
     data.address,
     data.birthDate,
     data.bio,
+    data.profileImage || null,
     idUser
   ];
 
