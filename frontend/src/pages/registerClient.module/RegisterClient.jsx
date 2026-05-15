@@ -49,6 +49,12 @@ export default function RegisterClient() {
     }
   }, []);
 
+  const validateBirthYear = (birthDate) => {
+    const birth = new Date(birthDate);
+    const birthYear = birth.getFullYear();
+    return birthYear <= 2008;
+  };
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -58,6 +64,11 @@ export default function RegisterClient() {
 
     if (!form.phoneNumber || !form.city || !form.birthDate) {
       setMessage("Faltan campos obligatorios");
+      return;
+    }
+
+    if (!validateBirthYear(form.birthDate)) {
+      setMessage("❌ Debes ser mayor de edad (18 años o más) para registrarte y contratar un servicio.");
       return;
     }
 

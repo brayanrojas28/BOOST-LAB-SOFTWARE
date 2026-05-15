@@ -55,6 +55,12 @@ export default function Register() {
     });
   };
 
+  const validateBirthYear = (birthDate) => {
+    const birth = new Date(birthDate);
+    const birthYear = birth.getFullYear();
+    return birthYear <= 2008;
+  };
+
   // Paso 1: Registro básico
   const handleSubmitStep1 = async (e) => {
     e.preventDefault();
@@ -124,6 +130,11 @@ export default function Register() {
         return;
       }
 
+      if (!validateBirthYear(additionalData.birthDate)) {
+        setError("❌ Debes ser mayor de edad (18 años o más) para registrarte como profesional.");
+        return;
+      }
+
       setLoading(true);
       try {
         const res = await fetch("http://localhost:8080/api/register/professional", {
@@ -179,6 +190,11 @@ export default function Register() {
       // Cliente
       if (!additionalData.phoneNumber || !additionalData.city || !additionalData.birthDate) {
         setError("Faltan campos obligatorios");
+        return;
+      }
+
+      if (!validateBirthYear(additionalData.birthDate)) {
+        setError("❌ Debes ser mayor de edad (18 años o más) para registrarte y contratar un servicio.");
         return;
       }
 

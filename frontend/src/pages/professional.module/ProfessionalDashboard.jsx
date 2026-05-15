@@ -34,15 +34,71 @@ export default function ProfessionalDashboard() {
     fetchProfessionals();
   }, [navigate]);
 
+  const fictitiousProfessionals = [
+    {
+      id: 101,
+      fullName: "Dr. Carlos Mendoza",
+      profession: "psicología",
+      city: "Medellín",
+      experience: 12,
+      profileImage: null,
+      bio: "Especialista en psicología clínica y terapia conductual",
+      isFictitious: true
+    },
+    {
+      id: 102,
+      fullName: "Laura Gómez",
+      profession: "finanzas",
+      city: "Bogotá",
+      experience: 8,
+      profileImage: null,
+      bio: "Asesora financiera con experiencia en inversiones",
+      isFictitious: true
+    },
+    {
+      id: 103,
+      fullName: "Juan Pérez",
+      profession: "educativo",
+      city: "Cali",
+      experience: 10,
+      profileImage: null,
+      bio: "Tutor especializado en matemáticas e inglés",
+      isFictitious: true
+    },
+    {
+      id: 104,
+      fullName: "María Rodríguez",
+      profession: "coach",
+      city: "Medellín",
+      experience: 6,
+      profileImage: null,
+      bio: "Coach de vida enfocada en desarrollo personal",
+      isFictitious: true
+    },
+    {
+      id: 105,
+      fullName: "Roberto Silva",
+      profession: "laboral",
+      city: "Bogotá",
+      experience: 9,
+      profileImage: null,
+      bio: "Asesor laboral especializado en recursos humanos",
+      isFictitious: true
+    }
+  ];
+
   const fetchProfessionals = async () => {
     try {
       const res = await fetch("http://localhost:8080/api/professionals");
       if (res.ok) {
         const data = await res.json();
-        setProfessionals(data);
+        setProfessionals(data && data.length > 0 ? data : fictitiousProfessionals);
+      } else {
+        setProfessionals(fictitiousProfessionals);
       }
     } catch (error) {
       console.error("Error al cargar profesionales:", error);
+      setProfessionals(fictitiousProfessionals);
     } finally {
       setLoading(false);
     }
@@ -127,7 +183,18 @@ export default function ProfessionalDashboard() {
           ) : (
             <div className="professionals-grid">
               {professionals.map((prof) => (
-                <div key={prof.id} className="professional-card" onClick={() => navigate(`/professional/public/${prof.id}`)}>
+                <div 
+                  key={prof.id} 
+                  className="professional-card" 
+                  onClick={() => {
+                    if (prof.isFictitious) {
+                      alert("Este es un profesional de ejemplo. Cuando se registren profesionales reales, los verás aquí.");
+                    } else {
+                      navigate(`/professional/public/${prof.id}`);
+                    }
+                  }}
+                  style={{ cursor: prof.isFictitious ? "not-allowed" : "pointer" }}
+                >
                   <div className="professional-card-header">
                     {prof.profileImage ? (
                       <img src={`http://localhost:8080/uploads/${prof.profileImage}`} alt={prof.fullName} />

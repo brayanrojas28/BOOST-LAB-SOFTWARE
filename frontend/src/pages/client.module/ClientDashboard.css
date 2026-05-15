@@ -120,7 +120,7 @@
 .btn-logout {
   width: 100%;
   padding: 0.85rem;
-  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  background: linear-gradient(135deg, #0a0970,  #0a0970);
   color: white;
   border: none;
   border-radius: 8px;
@@ -131,9 +131,9 @@
 }
 
 .btn-logout:hover {
-  background: linear-gradient(135deg, #b91c1c, #991b1b);
+  background: linear-gradient(135deg, #0a0970, #0a0970);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+  box-shadow: 0 4px 12px rgba(3, 3, 71, 0.3);
 }
 
 /* Overlay para cerrar menú */
@@ -174,93 +174,139 @@
 }
 
 .professionals-section h2 {
-  margin: 0 0 1.5rem;
+  margin: 0 0 2rem;
   color: #030347;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   text-align: center;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .professionals-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
 }
 
 .professional-card {
-  background: white;
-  border-radius: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafb 100%);
+  border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px rgba(3, 3, 71, 0.08);
   cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid #e2e8f0;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid #e8ecf1;
+  position: relative;
+}
+
+.professional-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #030347, #6b7280);
+  border-radius: 20px 20px 0 0;
+  z-index: 1;
 }
 
 .professional-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(3, 3, 71, 0.15);
+  border-color: #030347;
 }
 
 .professional-card-header {
-  height: 160px;
-  background: linear-gradient(135deg, #F2F2F2, #e0e0e0);
+  height: 180px;
+  background: linear-gradient(135deg, #030347 0%, #1a1b5c 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 1px solid #e2e8f0;
+  position: relative;
+  overflow: hidden;
+}
+
+.professional-card-header::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+  pointer-events: none;
 }
 
 .professional-card-header img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.professional-card:hover .professional-card-header img {
+  transform: scale(1.05);
 }
 
 .professional-placeholder {
-  font-size: 4rem;
-  color: #030347;
+  font-size: 5rem;
+  color: #c5cae0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
 }
 
 .professional-card-body {
-  padding: 1.5rem;
+  padding: 1.75rem;
   text-align: center;
 }
 
 .professional-card-body h3 {
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.85rem;
   color: #030347;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.3px;
 }
 
 .profession-badge {
   display: inline-block;
-  padding: 0.35rem 0.85rem;
+  padding: 0.45rem 1.1rem;
   background: linear-gradient(135deg, #030347, #1a1b5c);
   color: white;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  margin-bottom: 0.75rem;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(3, 3, 71, 0.2);
+  text-transform: capitalize;
+  letter-spacing: 0.3px;
 }
 
 .profession-city,
 .profession-experience {
-  margin: 0.5rem 0;
-  color: #000000;
+  margin: 0.65rem 0;
+  color: #4b5563;
   font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.profession-city {
+  color: #6b7280;
 }
 
 .loading-professionals {
   text-align: center;
   padding: 3rem;
-  color: #000000;
+  color: #030347;
   font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .no-professionals {
   text-align: center;
   padding: 3rem;
-  color: #000000;
+  color: #030347;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
 .loading {
