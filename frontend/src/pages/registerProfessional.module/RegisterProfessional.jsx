@@ -66,6 +66,12 @@ export default function RegisterProfessional() {
     }
   }, [navigate]);
 
+  const validateBirthYear = (birthDate) => {
+    const birth = new Date(birthDate);
+    const birthYear = birth.getFullYear();
+    return birthYear <= 2008;
+  };
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -116,6 +122,12 @@ export default function RegisterProfessional() {
       !form.professionalLicense
     ) {
       setMessage("❌ Faltan campos obligatorios");
+      setLoading(false);
+      return;
+    }
+
+    if (!validateBirthYear(form.birthDate)) {
+      setMessage("❌ Debes ser mayor de edad (18 años o más) para registrarte como profesional.");
       setLoading(false);
       return;
     }
@@ -407,42 +419,44 @@ export default function RegisterProfessional() {
             </fieldset>
 
             {/* Idiomas */}
-            <div className="checkbox-group">
-              <p>Idiomas</p>
-              <div className="checkbox-grid">
-                {["Español", "Inglés", "Portugués", "Francés", "Otro"].map((lang) => (
-                  <label key={lang}>
-                    <input
-                      type="checkbox"
+            <fieldset style={{ border: "none", padding: "0", marginBottom: "1.5rem", borderTop: "1px solid #d0d0d0", paddingTop: "1.5rem" }}>
+              <legend style={{ color: "#030347", fontWeight: "600", marginBottom: "1rem", fontSize: "0.95rem", textTransform: "uppercase" }}>Idiomas (Opcional)</legend>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
+                {["Español", "Inglés", "Portugués", "Francés"].map((lang) => (
+                  <label key={lang} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer" }}>
+                    <input 
+                      type="checkbox" 
                       value={lang}
                       checked={form.languages.includes(lang)}
                       onChange={(e) => handleCheckbox(e, "languages")}
                       disabled={loading}
                     />
-                    {lang}
+                    <span>{lang}</span>
                   </label>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
             {/* Habilidades */}
-            <div className="checkbox-group">
-              <p>Habilidades y Competencias</p>
-              <div className="checkbox-grid">
-                {["Liderazgo", "Comunicación", "Empatía", "Trabajo en Equipo", "Creatividad", "Pensamiento Crítico"].map((skill) => (
-                  <label key={skill}>
-                    <input
-                      type="checkbox"
+            <fieldset style={{ border: "none", padding: "0", marginBottom: "1.5rem", borderTop: "1px solid #d0d0d0", paddingTop: "1.5rem" }}>
+              <legend style={{ color: "#030347", fontWeight: "600", marginBottom: "1rem", fontSize: "0.95rem", textTransform: "uppercase" }}>Habilidades y Competencias (Opcional)</legend>
+
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "1rem" }}>
+                {["Comunicación", "Empatía", "Paciencia", "Liderazgo", "Flexibilidad", "Creatividad"].map((skill) => (
+                  <label key={skill} style={{ display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer" }}>
+                    <input 
+                      type="checkbox" 
                       value={skill}
                       checked={form.softSkills.includes(skill)}
                       onChange={(e) => handleCheckbox(e, "softSkills")}
                       disabled={loading}
                     />
-                    {skill}
+                    <span>{skill}</span>
                   </label>
                 ))}
               </div>
-            </div>
+            </fieldset>
 
             <button type="submit" disabled={loading}>
               {loading ? (

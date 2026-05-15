@@ -9,6 +9,59 @@ export default function ProfessionalsGallery() {
   const [filter, setFilter] = useState("all");
   const navigate = useNavigate();
 
+  const fictitiousProfessionals = [
+    {
+      id: 101,
+      fullName: "Dr. Carlos Mendoza",
+      profession: "psicología",
+      city: "Medellín",
+      experience: 12,
+      profileImage: null,
+      bio: "Especialista en psicología clínica y terapia conductual",
+      isFictitious: true
+    },
+    {
+      id: 102,
+      fullName: "Laura Gómez",
+      profession: "finanzas",
+      city: "Bogotá",
+      experience: 8,
+      profileImage: null,
+      bio: "Asesora financiera con experiencia en inversiones",
+      isFictitious: true
+    },
+    {
+      id: 103,
+      fullName: "Juan Pérez",
+      profession: "educativo",
+      city: "Cali",
+      experience: 10,
+      profileImage: null,
+      bio: "Tutor especializado en matemáticas e inglés",
+      isFictitious: true
+    },
+    {
+      id: 104,
+      fullName: "María Rodríguez",
+      profession: "coach",
+      city: "Medellín",
+      experience: 6,
+      profileImage: null,
+      bio: "Coach de vida enfocada en desarrollo personal",
+      isFictitious: true
+    },
+    {
+      id: 105,
+      fullName: "Roberto Silva",
+      profession: "laboral",
+      city: "Bogotá",
+      experience: 9,
+      profileImage: null,
+      bio: "Asesor laboral especializado en recursos humanos",
+      isFictitious: true
+    }
+  ];
+
   useEffect(() => {
     fetchProfessionals();
   }, []);
@@ -19,12 +72,14 @@ export default function ProfessionalsGallery() {
       const data = await res.json();
       
       if (!res.ok) {
-        throw new Error(data.error || "Error al cargar profesionales");
+        setProfessionals(fictitiousProfessionals);
+        return;
       }
       
-      setProfessionals(data);
+      setProfessionals(data && data.length > 0 ? data : fictitiousProfessionals);
     } catch (err) {
       setError(err.message);
+      setProfessionals(fictitiousProfessionals);
     } finally {
       setLoading(false);
     }
@@ -34,8 +89,12 @@ export default function ProfessionalsGallery() {
     ? professionals 
     : professionals.filter(prof => prof.profession === filter);
 
-  const handleViewProfile = (professionalId) => {
-    navigate(`/professional/public/${professionalId}`);
+  const handleViewProfile = (professional) => {
+    if (professional.isFictitious) {
+      alert("Este es un profesional de ejemplo. Cuando se registren profesionales reales, los verás aquí.");
+    } else {
+      navigate(`/professional/public/${professional.id}`);
+    }
   };
 
   if (loading) {
@@ -72,9 +131,15 @@ export default function ProfessionalsGallery() {
 
   return (
     <div className="professionals-gallery">
+      <button className="btn-back-gallery" onClick={() => navigate(-1)}>
+        ← Volver
+      </button>
+
       <div className="gallery-header">
-        <h1>🔍 Profesionales BOOST</h1>
-        <p>Descubre expertos en diversas áreas</p>
+        <div className="header-content">
+          <h1>🔍 Profesionales BOOST</h1>
+          <p>Descubre expertos en diversas áreas y encuentra el profesional perfecto para ti</p>
+        </div>
         
         <div className="filter-container">
           <label htmlFor="filter">Filtrar por profesión:</label>
@@ -150,8 +215,9 @@ export default function ProfessionalsGallery() {
             
             <div className="card-footer">
               <button 
-                onClick={() => handleViewProfile(professional.id)}
+                onClick={() => handleViewProfile(professional)}
                 className="btn-view-profile"
+                style={{ cursor: professional.isFictitious ? "not-allowed" : "pointer" }}
               >
                 Ver Perfil Completo
               </button>
